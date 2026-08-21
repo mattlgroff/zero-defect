@@ -1,0 +1,24 @@
+{
+  "name": "zero-defect",
+  "owner": {
+    "name": "Matthew Groff"
+  },
+  "description": "Zero Defect adversarial review for business deliverables",
+  "plugins": [
+    {
+      "name": "zero-defect",
+      "displayName": "Zero Defect",
+      "source": "./plugins/zero-defect",
+      "description": "Seven-lens adversarial review for promises, evidence, numbers, contradictions, omissions, precision, and AI-writing slop",
+      "version": "1.0.0-rc.1",
+      "author": {
+        "name": "Matthew Groff"
+      },
+      "homepage": "https://github.com/mattlgroff/zero-defect",
+      "repository": "https://github.com/mattlgroff/zero-defect",
+      "license": "Apache-2.0 AND CC-BY-SA-4.0",
+      "category": "Productivity",
+      "tags": ["review", "knowledge-work", "quality", "writing"]
+    }
+  ]
+}

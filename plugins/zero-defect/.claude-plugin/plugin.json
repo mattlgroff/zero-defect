@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "zero-defect",
+  "displayName": "Zero Defect",
+  "version": "1.0.0-rc.1",
+  "description": "Seven-lens adversarial review for English-language business deliverables",
+  "author": {
+    "name": "Matthew Groff",
+    "url": "https://github.com/mattlgroff"
+  },
+  "homepage": "https://github.com/mattlgroff/zero-defect",
+  "repository": "https://github.com/mattlgroff/zero-defect",
+  "license": "Apache-2.0 AND CC-BY-SA-4.0",
+  "keywords": ["review", "knowledge-work", "quality", "writing"]
+}
