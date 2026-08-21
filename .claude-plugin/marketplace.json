@@ -10,7 +10,7 @@
       "displayName": "Zero Defect",
       "source": "./plugins/zero-defect",
       "description": "Seven-lens adversarial review for promises, evidence, numbers, contradictions, omissions, precision, and AI-writing slop",
-      "version": "1.0.0-rc.1",
+      "version": "1.0.0-rc.3",
       "author": {
         "name": "Matthew Groff"
       },

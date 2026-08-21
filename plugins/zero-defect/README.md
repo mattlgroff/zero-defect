@@ -60,6 +60,8 @@ The complete seven-reviewer workflow requires Cowork. If the host cannot invoke 
 
 Zero Defect creates no files and includes no MCP server, hook, executable, package dependency, local server, or filesystem output.
 
+The seven reviewers read the deliverable directly with read-only tools. They open the exact paths named in the review assignment, confirm passages with a literal search, and report line anchors. They do not write, edit, or delete anything, and they do not browse beyond the assigned paths.
+
 Public web research is disabled unless the review context clearly permits it or you approve it. Confidential names, candidate details, deal terms, private customer information, unreleased figures, credentials, and signed links must never be sent to web tools.
 
 ## License
