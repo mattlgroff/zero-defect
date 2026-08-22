@@ -8,6 +8,8 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
+Download `zero-defect-1.0.0.zip` from the [latest GitHub release](https://github.com/mattlgroff/zero-defect/releases/latest), then:
+
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
 3. Upload the Zero Defect plugin ZIP. It must be under 50 MB.
@@ -17,9 +19,9 @@ Uploading a newer ZIP with the same plugin name replaces the existing version.
 
 ## Optional GitHub marketplace installation
 
-The repository also follows Claude's marketplace layout. For organization syncing, connect the private `mattlgroff/zero-defect` repository from **Organization settings > Plugins > Add plugins > GitHub**. The Claude GitHub App must have access to the repository.
+The repository also follows Claude's marketplace layout for Claude Code. Cowork organization installation uses the release ZIP because Claude's organization GitHub sync accepts only private or internal repositories.
 
-For Claude Code, your local Git credentials must have access to the private repository:
+For Claude Code:
 
 ```sh
 claude plugin marketplace add mattlgroff/zero-defect
@@ -27,6 +29,8 @@ claude plugin install zero-defect@zero-defect
 ```
 
 Restart Claude or start a fresh session after installation.
+
+Feedback and forks are welcome. Contributions are welcome for consideration, though the project may not accept every proposed change.
 
 ## Use
 
