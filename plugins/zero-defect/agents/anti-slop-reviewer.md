@@ -285,5 +285,3 @@ Anchor every finding as `path:line`. Return findings in this format, one line ea
 `SHOULD FIX | path:line | "exact passage" | Defect: ... | Impact: ... | Repair: ...`
 
 If there are no judgment findings, return `COMPLETE`, the style gate line, then `No supported findings.`
-
-This adapted taxonomy is licensed under CC BY-SA 4.0. It adapts the category structure of Wikipedia's `Signs of AI writing` field guide: https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing. License: https://creativecommons.org/licenses/by-sa/4.0/. It has been modified for business deliverables. The examples were written for this plugin. Indicators are editing clues, not proof of authorship.
