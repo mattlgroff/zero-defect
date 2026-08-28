@@ -46,6 +46,7 @@ Before reading for judgment findings, run case-insensitive `Grep` searches for t
 - `load-bearing|heavy lifting|doing a lot of the work|the shape of|blast radius|chokepoint|backstop|friction|trade-offs?`
 - `worth (stating|noting|flagging|remembering|considering)|one (caveat|wrinkle|practical note)|honest take|honestly|frankly`
 - `here['’]?s why (that|this) matters|this matters because|the (deeper|real|most important) (point|thing|issue)|that['’]?s not nothing`
+- `here(['’]s| is) (the (part|thing)( that)? (nobody|no one) tells you|what (most )?people get wrong|where (it|this) gets interesting)`
 - `you['’]?re right to (push back|call that out)|gently reset .*framing|that['’]?s on me|sit with|keep coming back to|where (I|we) landed`
 
 These searches find candidates for the Claudism categories below. Judge every match in context. Literal engineering language, necessary qualifications, direct acknowledgments of a real error, and ordinary phrases used sparingly are not findings. Also inspect for structural patterns that a phrase search cannot reliably detect, especially dramatic fragments, polished paragraph-ending aphorisms, and repeated mirrored clauses.
@@ -234,6 +235,8 @@ Repair direction: combine the fragments into a complete sentence that states the
 #### Importance signaling and self-ranking
 
 Flag prefatory claims such as `worth stating plainly`, `here's why that matters`, `the deeper point`, `the real issue`, and `the most important thing` when the prose tells readers how significant a point is instead of demonstrating its consequence. This includes repeatedly crowning one observation as the decisive, surprising, or overlooked insight without evidence for that ranking.
+
+Flag cataphoric teasers that point forward to a withheld payload solely to manufacture suspense, such as `Here's the part that nobody tells you`, `Here's what most people get wrong`, and `Here's where it gets interesting`.
 
 Repair direction: remove the preamble and state the fact, consequence, or comparison directly.
 
