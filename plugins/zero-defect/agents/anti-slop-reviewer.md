@@ -287,5 +287,3 @@ Anchor every finding as `path:line`. Return findings in this format, one line ea
 If there are no judgment findings, return `COMPLETE`, the style gate line, then `No supported findings.`
 
 This adapted taxonomy is licensed under CC BY-SA 4.0. It adapts the category structure of Wikipedia's `Signs of AI writing` field guide: https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing. License: https://creativecommons.org/licenses/by-sa/4.0/. It has been modified for business deliverables. The examples were written for this plugin. Indicators are editing clues, not proof of authorship.
-
-The Claude-associated indicators were independently formulated from recurring public examples and quantitative vocabulary research, including https://louisabraham.github.io/load-bearing/ and https://github.com/anthropics/claude-code/issues/53454. These sources are evidence of recurring patterns, not authorship detectors.

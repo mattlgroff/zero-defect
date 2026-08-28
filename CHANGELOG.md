@@ -9,7 +9,6 @@ All notable changes to Zero Defect are documented here.
 - A contextual candidate scan for recurring Claude-associated words and phrases.
 - Anti-slop detection for dramatic fragments, importance signaling, canned validation and pushback, structural metaphor clusters, and aphoristic endings.
 - Acceptance cases covering representative Claudisms, grouped findings, authorship neutrality, literal `load-bearing` language, ordinary enumeration, and direct corrections.
-- Public research references supporting the new Claudism categories while preserving the rule that writing patterns are not proof of authorship.
 
 ### Changed
 
