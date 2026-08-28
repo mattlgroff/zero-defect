@@ -211,6 +211,53 @@ Context: a security leader is approving a technical policy.
 
 Expected: `robust` alone is not flagged because it has a precise, natural technical meaning in context.
 
+## Claude-associated rhetorical attractors
+
+Target:
+
+```text
+Two. Things.
+
+The kickoff memo is load-bearing. It carries the shape of the operating model and does the heavy lifting for alignment.
+
+It is worth stating plainly: the deeper point is execution. That is not nothing.
+
+You're right to push back. One honest caveat: the workflow still has friction.
+
+Good process creates momentum. Great process compounds.
+```
+
+Context: the operations leader needs a direct explanation of what the kickoff memo contains, who uses it, and what fails if it is missing. No evidence supports ranking execution as the deeper point or the final claim about compounding.
+
+Expected:
+
+- the anti-slop reviewer runs the Claudism candidate searches and confirms exact passages before reporting them
+- dramatic fragments, importance signaling, canned validation, structural metaphor clustering, and the unsupported aphoristic ending are detected
+- overlapping instances are consolidated rather than reported as one finding per phrase
+- the repair direction asks for the actual dependency, consequence, actor, or action instead of synonym replacement
+- the review discusses prose defects only and never alleges that Claude or any other model authored the target
+
+## Claudism contextual controls
+
+Target:
+
+```text
+The structural engineer confirmed that the north wall is load-bearing. Removing it before temporary supports are installed could cause the second floor to collapse.
+
+The migration has two prerequisites: Legal must approve the retention schedule, and Operations must verify the backup. Priya will cancel the migration if either prerequisite is incomplete on September 12.
+
+The earlier total was wrong. I omitted the $4,000 support fee, so the corrected first-year total is $49,000.
+```
+
+Context: the structural assessment, migration requirements, owners, date, and corrected total are supported by the attached source documents.
+
+Expected:
+
+- literal `load-bearing` is not flagged because it precisely describes a structural dependency
+- `two prerequisites` is not treated as dramatic fragmentation or arbitrary structure
+- the direct correction is not treated as candor theater
+- no phrase is reported merely because it matched a Claudism candidate search
+
 ## Clean control
 
 Target:

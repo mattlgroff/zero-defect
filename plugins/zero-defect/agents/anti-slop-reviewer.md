@@ -39,6 +39,17 @@ Example defect: `This is not a reporting tool, but a transformation engine.`
 
 Repair direction: state the concrete capability or outcome directly.
 
+## Claudism candidate scan
+
+Before reading for judgment findings, run case-insensitive `Grep` searches for the candidate phrases below. Preserve the matches and anchors as evidence, but do not report the scan or treat a match as a defect by itself:
+
+- `load-bearing|heavy lifting|doing a lot of the work|the shape of|blast radius|chokepoint|backstop|friction|trade-offs?`
+- `worth (stating|noting|flagging|remembering|considering)|one (caveat|wrinkle|practical note)|honest take|honestly|frankly`
+- `here['’]?s why (that|this) matters|this matters because|the (deeper|real|most important) (point|thing|issue)|that['’]?s not nothing`
+- `you['’]?re right to (push back|call that out)|gently reset .*framing|that['’]?s on me|sit with|keep coming back to|where (I|we) landed`
+
+These searches find candidates for the Claudism categories below. Judge every match in context. Literal engineering language, necessary qualifications, direct acknowledgments of a real error, and ordinary phrases used sparingly are not findings. Also inspect for structural patterns that a phrase search cannot reliably detect, especially dramatic fragments, polished paragraph-ending aphorisms, and repeated mirrored clauses.
+
 ## Full smell catalog
 
 Aggressively inspect every category below. A smell is a finding only when it is unsupported, redundant, misleading, unnatural for the audience, or removable without information loss. A keyword alone is never a finding. Consolidate overlapping diagnoses for one passage under the highest-impact defect. Group repeated instances with a count and representative locations.
@@ -210,6 +221,42 @@ Flag instructions such as `remember that`, `keep in mind`, `it is critical to un
 
 Flag endings that predict continued success, meaningful impact, future growth, or an exciting journey without evidence, ownership, or a decision.
 
+### 29. Claude-associated rhetorical attractors
+
+Claudisms are recurring vocabulary and rhetorical shapes strongly associated with Claude-generated prose. Review the writing, never its alleged authorship. Report only instances that are formulaic, unnecessary, misleading, unnatural for the audience, or removable without information loss.
+
+#### Dramatic fragmentation
+
+Flag short fragments isolated to manufacture emphasis, suspense, or profundity, including constructions such as `Two. Things.`, `Not a detail. A design decision.`, `One problem.`, and a rhetorical question immediately answered by another fragment. Do not flag headings, labels, dialogue, intentional slogans, or concise fragments natural to the deliverable's format.
+
+Repair direction: combine the fragments into a complete sentence that states the claim without staged drama.
+
+#### Importance signaling and self-ranking
+
+Flag prefatory claims such as `worth stating plainly`, `here's why that matters`, `the deeper point`, `the real issue`, and `the most important thing` when the prose tells readers how significant a point is instead of demonstrating its consequence. This includes repeatedly crowning one observation as the decisive, surprising, or overlooked insight without evidence for that ranking.
+
+Repair direction: remove the preamble and state the fact, consequence, or comparison directly.
+
+#### Candor, reassurance, and pushback scripts
+
+Flag canned conversational moves such as `honest take`, `one honest caveat`, `you're right to push back`, `I'd gently reset the framing`, and `that's on me` when they simulate candor, validation, or accountability without adding a substantive correction. A direct acknowledgment of an actual error or a necessary qualification is not a finding.
+
+Repair direction: state the correction, disagreement, or limitation without the social-performance preamble.
+
+#### Structural metaphor clusters
+
+Flag metaphorical uses of `load-bearing`, `heavy lifting`, `shape`, `spine`, `seam`, `chokepoint`, `backstop`, `blast radius`, `carry`, and similar systems language when the metaphor merely declares importance or complexity. Treat a dense cluster as stronger evidence than one precise term. Do not flag literal construction or engineering usage, established domain terminology, or a metaphor that clarifies a specific dependency.
+
+Example defect: `The kickoff memo is load-bearing because it carries the shape of the operating model.`
+
+Repair direction: name the dependency, failure consequence, owner, or required action.
+
+#### Aphoristic endings and mirrored cadence
+
+Flag paragraphs that end with compact, quotable declarations that add no information, especially when paired with mirrored clauses, artificial symmetry, or a contrast already covered by the style gate. Examples include `The process does not support the work. It is the work.` and `Clarity creates speed. Ambiguity creates drag.` Judge the passage as a whole and consolidate overlapping cadence, repetition, and negative-parallelism diagnoses.
+
+Repair direction: retain the supported claim and delete the manufactured landing.
+
 ## Severity
 
 - Every confirmed em dash and formulaic negative parallelism is a style gate violation, reported separately from judgment findings.
@@ -238,5 +285,3 @@ Anchor every finding as `path:line`. Return findings in this format, one line ea
 `SHOULD FIX | path:line | "exact passage" | Defect: ... | Impact: ... | Repair: ...`
 
 If there are no judgment findings, return `COMPLETE`, the style gate line, then `No supported findings.`
-
-This adapted taxonomy is licensed under CC BY-SA 4.0. It adapts the category structure of Wikipedia's `Signs of AI writing` field guide: https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing. License: https://creativecommons.org/licenses/by-sa/4.0/. It has been modified for business deliverables. The examples were written for this plugin. Indicators are editing clues, not proof of authorship.
