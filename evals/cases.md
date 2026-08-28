@@ -237,6 +237,27 @@ Expected:
 - the repair direction asks for the actual dependency, consequence, actor, or action instead of synonym replacement
 - the review discusses prose defects only and never alleges that Claude or any other model authored the target
 
+## Cataphoric teasers
+
+Target:
+
+```text
+Here's the part that nobody tells you: the first week is the easy part.
+
+Here's what most people get wrong: they optimize the workflow before defining the decision.
+
+Here's where it gets interesting. The team stops asking for permission.
+```
+
+Context: an operations leader needs a direct explanation of the rollout risk, sequencing requirement, and decision authority. The teaser openings add no necessary context or evidence.
+
+Expected:
+
+- the candidate scan matches all three cataphoric teasers
+- the reviewer groups them as one recurring suspense pattern instead of three findings
+- the repair direction removes the teaser and states each supported fact or consequence directly
+- the reviewer does not allege AI authorship
+
 ## Claudism contextual controls
 
 Target:
