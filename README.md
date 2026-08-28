@@ -1,6 +1,6 @@
 # Zero Defect
 
-Zero Defect is a Claude Cowork plugin for adversarial review of English-language business deliverables. Seven focused reviewers inspect promises, evidence, numbers, contradictions, decision gaps, language precision, and AI-writing slop before another person relies on the work.
+Zero Defect is a Claude Cowork plugin for adversarial review of English-language business deliverables. Seven focused reviewers inspect promises, evidence, numbers, contradictions, decision gaps, language precision, and AI-writing slop, including Claude-associated rhetorical patterns, before another person relies on the work.
 
 It is designed for proposals, emails, candidate summaries, product plans, reports, requirements, spreadsheets, presentations, and similar knowledge work. It diagnoses defects and gives short repair directions. It does not rewrite the deliverable unless you separately ask Claude to revise it.
 
@@ -8,7 +8,7 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.0.0.zip` from the [latest GitHub release](https://github.com/mattlgroff/zero-defect/releases/latest), then:
+Download `zero-defect-1.1.0.zip` from the [latest GitHub release](https://github.com/mattlgroff/zero-defect/releases/latest), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
