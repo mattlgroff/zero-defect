@@ -8,7 +8,7 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.3.0.zip` from the [latest GitHub release](https://github.com/mattlgroff/zero-defect/releases/latest), then:
+Download `zero-defect-1.4.0.zip` from the [latest GitHub release](https://github.com/mattlgroff/zero-defect/releases/latest), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -59,6 +59,20 @@ In Claude Code, plugin skills are namespaced:
 The skill does not activate for ordinary drafting requests. It activates when you request a Zero Defect review or clearly request the same adversarial quality gate.
 
 The complete seven-reviewer workflow requires Cowork. If the host cannot invoke all seven plugin agents, the skill fails closed instead of silently substituting a single-model review.
+
+## Responding to findings
+
+Every issue in a Zero Defect report receives a unique identifier such as `ZD-001`. The identifier is assigned after duplicate findings from different lenses are merged, so one issue keeps one identifier even when several lenses found it.
+
+Use the identifiers to give precise follow-up instructions:
+
+```text
+ZD-001 fix.
+ZD-002 leave as is.
+ZD-003 explain.
+```
+
+Identifiers remain attached to the same findings during follow-up on that report. A fresh review is a new snapshot and may assign new identifiers.
 
 ## Privacy and behavior
 

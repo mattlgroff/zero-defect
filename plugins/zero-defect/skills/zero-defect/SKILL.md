@@ -49,19 +49,19 @@ Verdict: Ready | Not ready (style gate) | Not ready (N must fix) | Not ready (st
 
 Style gate: PASS | FAIL
 
-- Em dash U+2014: 6 at doc.html:12, doc.html:40, doc.html:118 and 3 more. Replace with a period, comma, colon, or parentheses.
-- Negative parallelism: 1 at doc.html:91 `not a report, but a decision`. State the outcome directly.
+- ZD-001 | Em dash U+2014: 6 at doc.html:12, doc.html:40, doc.html:118 and 3 more. Replace with a period, comma, colon, or parentheses.
+- ZD-002 | Negative parallelism: 1 at doc.html:91 `not a report, but a decision`. State the outcome directly.
 
 Must fix
 
-- [numbers, consistency, evidence] `doc.html:214` Defect. Impact. Repair. Evidence when applicable.
+- ZD-003 | [numbers, consistency, evidence] `doc.html:214` Defect. Impact. Repair. Evidence when applicable.
 
 Should fix
 
-- [language-precision] `doc.html:77` Defect. Impact. Repair.
+- ZD-004 | [language-precision] `doc.html:77` Defect. Impact. Repair.
 ```
 
-Omit an empty severity section. Omit the style gate bullets when it passes. Report every supported finding once. Group repeated instances of one defect with a count and representative anchors. Use terse bullets, no preamble, no praise, and no invented certainty.
+Omit an empty severity section. Omit the style gate bullets when it passes. Report every supported finding once. Group repeated instances of one defect with a count and representative anchors. After merging and ranking, assign identifiers according to the review contract. Use terse bullets, no preamble, no praise, and no invented certainty.
 
 The bracketed lens list is the corroboration record. Preserve it.
 
