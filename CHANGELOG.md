@@ -2,6 +2,18 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.3.0] - 2026-09-02
+
+### Added
+
+- Anti-slop detection for mannered prose that replaces a clearer literal statement with metaphor, flourish, or conspicuously polished phrasing.
+- Acceptance cases covering mannered prose, grouped findings, specific repair direction, and literal technical-language controls.
+
+### Changed
+
+- The marketplace and packaged plugin versions are now `1.3.0`.
+- Installation documentation now names the `zero-defect-1.3.0.zip` release asset.
+
 ## [1.2.0] - 2026-08-28
 
 ### Added
@@ -24,5 +36,6 @@ All notable changes to Zero Defect are documented here.
 - Reviewers for commitments, evidence, numbers, consistency, decision completeness, language precision, and AI-writing slop.
 - Read-only review behavior, literal passage verification, contextual severity rules, and acceptance cases.
 
+[1.3.0]: https://github.com/mattlgroff/zero-defect/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/mattlgroff/zero-defect/compare/v1.0.0...v1.2.0
 [1.0.0]: https://github.com/mattlgroff/zero-defect/releases/tag/v1.0.0

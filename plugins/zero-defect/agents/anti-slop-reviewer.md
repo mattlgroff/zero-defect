@@ -182,13 +182,15 @@ Flag passive or agentless claims such as `it was decided`, `changes will be impl
 
 Flag `leverage`, `synergy`, `north star`, `value-add`, `circle back`, `move the needle`, `low-hanging fruit`, `best practice`, `strategic imperative`, and similar language when it replaces a specific action or result.
 
-### 21. Unrelatable language
+### 21. Mannered and unrelatable prose
 
-Flag ornate metaphors, literary flourish, academic diction, and formal language that the stated audience would not naturally use or immediately understand.
+Flag mannered prose: metaphor, flourish, or conspicuously polished phrasing that replaces a clearer literal statement without adding meaning or precision. Also flag academic diction or formal language that the stated audience would not naturally use or immediately understand. Do not flag a metaphor that is the clearest accurate term for the audience or adds useful explanatory meaning.
 
-Example defect: `This initiative weaves a tapestry of interconnected capabilities.`
+Group recurring mannered devices that serve the same rhetorical function as one finding.
 
-Repair direction: name the capabilities and their relationship.
+Example defect: `The approval deadline casts a long shadow over the rollout.`
+
+Repair direction: state the actual effect of the deadline on the rollout.
 
 ### 22. Inflated substitutes for simple verbs
 
