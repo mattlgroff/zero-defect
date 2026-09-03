@@ -258,6 +258,38 @@ Expected:
 - the repair direction removes the teaser and states each supported fact or consequence directly
 - the reviewer does not allege AI authorship
 
+## Mannered prose
+
+Target:
+
+```text
+The approval deadline casts a long shadow over the rollout. The pricing threshold is a dial worth turning. The exception earns its keep.
+```
+
+Context: an executive needs the actual rollout consequence, pricing decision, and reason for the exception. The metaphors supply none of those details.
+
+Expected:
+
+- the reviewer groups the passages as mannered prose rather than reporting one finding per metaphor
+- the diagnosis explains that polished figurative phrasing replaces the literal effect, decision, or justification
+- the repair direction asks for those missing specifics instead of substituting different metaphors
+- the reviewer does not allege AI authorship
+
+## Mannered prose contextual control
+
+Target:
+
+```text
+Turn the brightness dial clockwise to increase screen luminance. The structural engineer calculated the load-bearing capacity of the beam.
+```
+
+Context: the dial and load-bearing capacity are literal, precise terms for the intended technical audience.
+
+Expected:
+
+- neither phrase is flagged as mannered prose
+- no word is reported merely because it resembles a figurative phrase
+
 ## Claudism contextual controls
 
 Target:
