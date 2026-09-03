@@ -55,6 +55,12 @@ Use **Should fix** for a supported defect that does not block safe reliance, inc
 
 When more than one lens reports the same passage, merge the reports into one finding, keep the strongest supported evidence, and record every lens that raised it. Four lenses converging on one passage is stronger evidence than one, and the report must show that. Rank by corroboration count within a severity band. Never discard the fact that lenses agreed.
 
+## Finding identifiers
+
+After adjudicating, merging, and ranking the final report, assign every published issue a unique identifier in display order: `ZD-001`, `ZD-002`, and so on. Use one sequence across style gate, Must fix, Should fix, and incomplete-reviewer findings. A grouped or cross-lens finding gets one identifier. Reviewers do not assign identifiers before the parent merges their reports.
+
+Keep an identifier attached to the same finding throughout follow-up discussion of that report. Never silently renumber an existing report. A fresh review is a new snapshot and may assign a new sequence.
+
 ## Evidence
 
 Verify material external claims, especially numbers, comparisons, causal claims, market facts, guarantees, and assertions presented as established truth.

@@ -2,6 +2,20 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.4.0] - 2026-09-03
+
+### Added
+
+- Unique `ZD-###` identifiers for every published style-gate, Must fix, Should fix, and incomplete-reviewer issue.
+- Follow-up guidance for accepting, rejecting, fixing, or discussing findings by identifier.
+- Acceptance coverage for global sequencing, merged cross-lens findings, follow-up stability, and nonexistent identifiers.
+
+### Changed
+
+- The parent reviewer now assigns identifiers only after adjudication, grouping, ranking, and cross-lens deduplication.
+- The marketplace and packaged plugin versions are now `1.4.0`.
+- Installation documentation now names the `zero-defect-1.4.0.zip` release asset.
+
 ## [1.3.0] - 2026-09-02
 
 ### Added
@@ -36,6 +50,7 @@ All notable changes to Zero Defect are documented here.
 - Reviewers for commitments, evidence, numbers, consistency, decision completeness, language precision, and AI-writing slop.
 - Read-only review behavior, literal passage verification, contextual severity rules, and acceptance cases.
 
+[1.4.0]: https://github.com/mattlgroff/zero-defect/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/mattlgroff/zero-defect/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/mattlgroff/zero-defect/compare/v1.0.0...v1.2.0
 [1.0.0]: https://github.com/mattlgroff/zero-defect/releases/tag/v1.0.0
