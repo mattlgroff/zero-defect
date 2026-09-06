@@ -56,11 +56,13 @@ const mode = ${JSON.stringify(scenario)};
 const evidence = prompt.startsWith("You are the evidence reviewer");
 const adjudicator = prompt.startsWith("You are the final adjudicator");
 if (evidence && mode === "exit") { process.stderr.write("fixture process failure"); process.exit(1); }
-if (adjudicator && ["malformed", "incomplete", "prefix", "exit"].includes(mode)) process.exit(99);
-let text = "COMPLETE\\nNo findings.";
+if (adjudicator && ["malformed", "incomplete", "prefix", "schema", "exit"].includes(mode)) process.exit(99);
+if (!adjudicator && !process.argv.includes("--output-schema")) process.exit(98);
+let text = JSON.stringify({status:"complete",findings:[],reason:""});
 if (evidence && mode === "malformed") text = "Evidence text without marker";
-if (evidence && mode === "incomplete") text = "INCOMPLETE\\nSource could not be read";
-if (evidence && mode === "prefix") text = "COMPLETELY invalid marker";
+if (evidence && mode === "incomplete") text = JSON.stringify({status:"incomplete",findings:[],reason:"Source could not be read"});
+if (evidence && mode === "prefix") text = JSON.stringify({status:"complete",findings:[],reason:"Blocked source"});
+if (evidence && mode === "schema") text = JSON.stringify({status:"complete",findings:"bad",reason:""});
 if (adjudicator) text = mode === "adjudicator" ? "Malformed report retained" : "I found no issues. Looks good to me. Ready to ship.";
 console.log(JSON.stringify({type:"item.completed",item:{type:"agent_message",text}}));
 `);
@@ -73,7 +75,7 @@ console.log(JSON.stringify({type:"item.completed",item:{type:"agent_message",tex
   return { code: result.code, payload: JSON.parse(result.stdout) };
 }
 
-for (const scenario of ["malformed", "incomplete", "prefix", "exit"]) {
+for (const scenario of ["malformed", "incomplete", "prefix", "schema", "exit"]) {
   test(`retains usable results and excludes failed evidence lens: ${scenario}`, async (t) => {
     const { code, payload } = await simulate(t, scenario);
     assert.equal(code, 3);
@@ -81,10 +83,10 @@ for (const scenario of ["malformed", "incomplete", "prefix", "exit"]) {
     assert.equal(payload.completedLenses.length, 6);
     assert.ok(!payload.completedLenses.includes("evidence"));
     assert.ok(payload.failures.evidence);
-    assert.equal(payload.results.numbers, "COMPLETE\nNo findings.");
+    assert.equal(payload.results.numbers, "COMPLETE\nNo supported findings.");
     assert.equal(typeof payload.styleCensus, "string");
     assert.equal(payload.report, undefined);
-    if (scenario !== "exit") assert.equal(typeof payload.results.evidence, "string");
+    if (scenario !== "exit") assert.equal(typeof payload.rawResults.evidence, "string");
   });
 }
 

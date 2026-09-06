@@ -14,6 +14,7 @@ const lenses = (await readdir(agentsDirectory))
 if (lenses.length !== 7) fail(`canonical agent directory must contain exactly seven reviewers; found ${lenses.length}`);
 const contract = path.join(root, "plugins", "zero-defect", "skills", "zero-defect", "references", "review-contract.md");
 const canonicalSkill = path.join(root, "plugins", "zero-defect", "skills", "zero-defect", "SKILL.md");
+const reviewerSchema = path.join(root, "scripts", "reviewer-output.schema.json");
 const maxOutputBytes = 2 * 1024 * 1024;
 const timeoutMs = 10 * 60 * 1000;
 
@@ -147,8 +148,10 @@ Codex execution rules:
 - Translate Claude tool names by capability: use read-only file inspection and literal search. Use public web tools only when research is allowed.
 - Read only the exact deliverable paths and canonical instruction files named above.
 - Do not modify files, write artifacts, run mutating commands, or delegate.
-- Start your final response with the standalone line COMPLETE only after completing the review. If blocked, start with INCOMPLETE and explain why. Do not wrap the marker in Markdown.
-- Follow the canonical completion marker and output format exactly.
+- Codex transport overrides only the canonical text envelope: return the JSON object required by the supplied output schema, without Markdown fences.
+- Set status to complete only after completing the review; use incomplete for blocked capabilities, unreadable files, or truncated reads.
+- Put each canonical finding line in findings, preserving severity, exact passage, anchor, impact, repair, and evidence. Use an empty array when there are no supported findings. Do not include a COMPLETE marker or a no-findings sentence.
+- For incomplete status, reason must explain the blocker. For complete status, reason must be empty. The collector supplies the canonical completion marker deterministically.
 `;
 }
 
@@ -179,7 +182,7 @@ function parseFinalMessage(stdout, label) {
   return finalMessage;
 }
 
-function runCodex(label, prompt) {
+function runCodex(label, prompt, schema) {
   return new Promise((resolve, reject) => {
     const args = [
       "exec",
@@ -194,6 +197,7 @@ function runCodex(label, prompt) {
       "--json",
       "-",
     ];
+    if (schema) args.splice(args.length - 1, 0, "--output-schema", schema);
     const child = spawn(process.env.CODEX_BIN || "codex", args, {
       cwd: process.cwd(),
       env: restrictedEnvironment(),
@@ -275,6 +279,7 @@ function validateFinalReport(report) {
 const rawArgs = process.argv.slice(2);
 const stdinMode = rawArgs.length === 1 && rawArgs[0] === "--stdin";
 const assignment = stdinMode ? await readStdinAssignment() : parseArgs(rawArgs);
+await requireReadable(reviewerSchema);
 await requireReadable(contract);
 await requireReadable(canonicalSkill);
 for (const lens of lenses) await requireReadable(reviewerPath(lens));
@@ -286,19 +291,37 @@ if (assignment.check) {
 for (const file of assignment.paths) await requireReadable(file);
 assignment.styleCensus = await computeStyleCensus(assignment.paths);
 
-const settled = await Promise.allSettled(lenses.map((lens) => runCodex(lens, promptFor(lens, assignment))));
+const settled = await Promise.allSettled(lenses.map((lens) => runCodex(lens, promptFor(lens, assignment), reviewerSchema)));
+const rawResults = {};
 const results = {};
 const failures = {};
 settled.forEach((result, index) => {
   const lens = lenses[index];
-  if (result.status === "fulfilled") results[lens] = result.value;
+  if (result.status === "fulfilled") rawResults[lens] = result.value;
   else failures[lens] = result.reason instanceof Error ? result.reason.message : String(result.reason);
 });
 for (const lens of lenses) {
-  if (results[lens] !== undefined && !/^COMPLETE(?:\r?\n|$)/u.test(results[lens].trim())) failures[lens] = "result did not start with standalone COMPLETE";
+  if (rawResults[lens] === undefined) continue;
+  try {
+    const value = JSON.parse(rawResults[lens]);
+    if (!value || typeof value !== "object" || Array.isArray(value) ||
+        Object.keys(value).sort().join(",") !== "findings,reason,status" ||
+        !["complete", "incomplete"].includes(value.status) ||
+        !Array.isArray(value.findings) || value.findings.some((finding) => typeof finding !== "string" || !finding.trim()) ||
+        typeof value.reason !== "string") {
+      throw new Error("reviewer response did not match the required schema");
+    }
+    if (value.status === "incomplete") {
+      throw new Error(value.reason.trim() ? `reviewer incomplete: ${value.reason}` : "incomplete reviewer omitted its reason");
+    }
+    if (value.reason.trim()) throw new Error("complete reviewer reported a failure reason");
+    results[lens] = ["COMPLETE", ...(value.findings.length ? value.findings : ["No supported findings."])].join("\n");
+  } catch (error) {
+    failures[lens] = error instanceof Error ? error.message : String(error);
+  }
 }
 const completedLenses = lenses.filter((lens) => results[lens] !== undefined && !failures[lens]);
-const diagnostics = { completedLenses, results, styleCensus: assignment.styleCensus };
+const diagnostics = { completedLenses, results, rawResults, styleCensus: assignment.styleCensus };
 if (Object.keys(failures).length > 0) {
   process.stdout.write(`${JSON.stringify({ status: "incomplete", ...diagnostics, failures })}\n`);
   process.exit(3);
