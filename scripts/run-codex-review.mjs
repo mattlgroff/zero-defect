@@ -147,6 +147,7 @@ Codex execution rules:
 - Translate Claude tool names by capability: use read-only file inspection and literal search. Use public web tools only when research is allowed.
 - Read only the exact deliverable paths and canonical instruction files named above.
 - Do not modify files, write artifacts, run mutating commands, or delegate.
+- Start your final response with the standalone line COMPLETE only after completing the review. If blocked, start with INCOMPLETE and explain why. Do not wrap the marker in Markdown.
 - Follow the canonical completion marker and output format exactly.
 `;
 }
@@ -294,18 +295,21 @@ settled.forEach((result, index) => {
   else failures[lens] = result.reason instanceof Error ? result.reason.message : String(result.reason);
 });
 for (const lens of lenses) {
-  if (results[lens] && !results[lens].startsWith("COMPLETE")) failures[lens] = "result did not start with COMPLETE";
+  if (results[lens] !== undefined && !/^COMPLETE(?:\r?\n|$)/u.test(results[lens].trim())) failures[lens] = "result did not start with standalone COMPLETE";
 }
+const completedLenses = lenses.filter((lens) => results[lens] !== undefined && !failures[lens]);
+const diagnostics = { completedLenses, results, styleCensus: assignment.styleCensus };
 if (Object.keys(failures).length > 0) {
-  process.stdout.write(`${JSON.stringify({ status: "incomplete", completedLenses: Object.keys(results), failures })}\n`);
+  process.stdout.write(`${JSON.stringify({ status: "incomplete", ...diagnostics, failures })}\n`);
   process.exit(3);
 }
 
+let report;
 try {
-  const report = await runCodex("adjudicator", adjudicationPrompt(assignment, results));
+  report = await runCodex("adjudicator", adjudicationPrompt(assignment, results));
   validateFinalReport(report);
   process.stdout.write(`${JSON.stringify({ status: "complete", completedLenses: lenses, failures: {}, report })}\n`);
 } catch (error) {
-  process.stdout.write(`${JSON.stringify({ status: "incomplete", completedLenses: lenses, failures: { adjudicator: error instanceof Error ? error.message : String(error) } })}\n`);
+  process.stdout.write(`${JSON.stringify({ status: "incomplete", ...diagnostics, rejectedReport: report, failures: { adjudicator: error instanceof Error ? error.message : String(error) } })}\n`);
   process.exit(3);
 }
