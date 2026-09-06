@@ -116,3 +116,5 @@ Public web research is disabled unless the review context clearly permits it or 
 ## License
 
 The project is licensed under Apache License 2.0 except for the adapted anti-slop taxonomy in `anti-slop-reviewer.md`, which is licensed under CC BY-SA 4.0. The distributable plugin includes the license and attribution notice.
+
+Codex constrains individual reviewers with a JSON output schema and validates completion status before generating canonical report markers. It preserves reviewer responses and failure diagnostics when a lens or the adjudicator fails. The parent can triage supported findings from the retained results, but the audit remains incomplete and cannot receive a Ready verdict. Failed components are not counted as completed reviewers.

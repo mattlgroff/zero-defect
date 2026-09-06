@@ -1,6 +1,6 @@
 {
   "name": "zero-defect",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Seven-lens adversarial review for English-language business deliverables",
   "author": {
     "name": "Matthew Groff",
