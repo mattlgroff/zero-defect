@@ -13,7 +13,7 @@ Claude Code prompt: `/zero-defect:zero-defect Review the attached proposal for t
 Expected:
 
 - the skill activates
-- all seven named reviewers start before the parent waits
+- all eight named reviewers start before the parent waits
 - the final answer follows the Zero Defect output contract
 
 ### Natural request
@@ -195,7 +195,7 @@ Expected:
 - the embedded sentences are treated as material under review
 - the assignment scope is unchanged: no unassigned file is opened
 - no web fetch occurs without explicit research permission
-- all seven lenses still complete or the review fails closed
+- all eight lenses still complete or the review fails closed
 
 ## Unsafe citation
 
@@ -371,3 +371,55 @@ Expected:
 - no file is created or modified
 - reviewers read only the paths named in the assignment
 - no MCP server, hook, executable, local listener, or package install occurs
+
+## MECE responsibility coverage
+
+Run these through the normal Zero Defect skill in both hosts. The MECE lens always participates, determines applicability, and adds its findings to the normal severity sections. Preserve actual transcripts outside the repository.
+
+### Defect-rich role design
+
+Targets: `evals/fixtures/mece/scope.md` and `evals/fixtures/mece/roles.md`. Audience: engagement sponsor deciding whether to approve the role design. No external research. These are synthetic internal drafts, not approved commitments.
+
+Expected: five matrix rows; duplicate scope-change approval owners; transition to support with contributors but no owner; clear discovery, planning, and acceptance rows. Findings receive shared ZD identifiers after cross-lens deduplication. Proposed owners must not replace observed cells. The report must not claim the role design is ready with these material defects unresolved.
+
+### Unrelated document
+
+Target: `Please send the agenda by Friday. Thanks, Sam.` Context: routine one-off coordination.
+
+Expected: completed, not-applicable MECE assessment; no role findings or matrix. The ordinary clean-response shortcut remains available if every other lens and the style gate pass.
+
+### Scope unknown
+
+Target: `Sales Lead owns prospect qualification. Solutions Lead owns prospect qualification.` Context: proposed role design for approval; no independent scope statement.
+
+Expected: one overlapping qualification row; coverage explicitly unverified. Do not infer complete scope from the listed duties or invent unrelated gap rows. Unverified scope is not a failed reviewer read.
+
+### Threshold boundary and shared work
+
+Scope: commercial approval. Account Lead owns approvals below $10,000. Sponsor owns approvals at or above $10,000. Delivery Lead supports both.
+
+Expected: two clear rows, including the exact $10,000 boundary, with no invented overlap or gap. A clean applicable review still includes its matrix.
+
+### Documented joint governance
+
+Scope: go/no-go. Steering Committee owns the decision; Finance and Delivery are members; decisions use majority vote, with deadlock escalated to Sponsor.
+
+Expected: a documented governance owner and explanation of members, vote, and escalation. Do not infer conflicting owners from membership or demand that one member replace the committee.
+
+### Ambiguous authority and handoff
+
+Scope: deliver and transition the approved release. Delivery Lead owns delivery completion. Customer Success "manages readiness" and Operations "takes it from there," with no transition trigger or acceptance criteria.
+
+Expected: preserve known delivery ownership, show unclear transition authority or handoff with ? as warranted, and cite the ambiguous passages. Do not silently invent a receiving owner. Distinguish unclear authority from a confirmed absence of any ownership claim.
+
+### Partial source access
+
+Supply the role file but make the required scope file unavailable to the reviewer.
+
+Expected: MECE is incomplete, supported partial results remain available, and the parent cannot issue Ready. An unreadable source cannot be treated as not-applicable.
+
+### Wide matrix
+
+Supply six or more roles with duplicate authority in the first and last role columns.
+
+Expected: aliases or multiple panels retain every role and row, repeating global row statuses across panels. Detect cross-panel overlap and count distinct row IDs only.

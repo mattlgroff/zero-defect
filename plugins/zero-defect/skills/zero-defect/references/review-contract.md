@@ -89,5 +89,9 @@ Do not search merely to rescue an assertion. The author remains responsible for 
 - Do not silently rewrite the work.
 - Do not hide uncertainty.
 - Do not add praise beyond the required clean-response sentence.
-- Do not call a review complete unless all seven lenses returned.
+- The parent must not call the overall review complete unless all eight lenses returned. An individual reviewer uses COMPLETE for its own completed reading and assessment.
 - Start a complete response with `COMPLETE`. Return `INCOMPLETE` only when a file was unreadable, a tool truncated it, or a required capability was blocked. Reading an assigned file in full is complete coverage.
+
+## MECE integration
+
+The MECE reviewer tests role accountability and responsibility coverage when applicable. Follow [mece-report.md](mece-report.md) for applicability, assessment validation, the matrix, and clean-response behavior. Its findings use the same severity, corroboration, and ZD identifiers as every other lens. For a documented ownership omission, anchor the required responsibility and identify the role sources inspected; do not invent a quotation for absent text. The matrix is not subject to the 12-finding cap: include all supported in-scope rows.

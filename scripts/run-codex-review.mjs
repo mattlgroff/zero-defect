@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
+import { readReviewText } from "./read-review-text.mjs";
+import { validateFinding, validateMece, validateFinalReport } from "./review-validation.mjs";
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,10 +13,12 @@ const lenses = (await readdir(agentsDirectory))
   .filter((name) => name.endsWith("-reviewer.md"))
   .map((name) => name.slice(0, -"-reviewer.md".length))
   .sort();
-if (lenses.length !== 7) fail(`canonical agent directory must contain exactly seven reviewers; found ${lenses.length}`);
+if (lenses.length !== 8) fail(`canonical agent directory must contain exactly eight reviewers; found ${lenses.length}`);
 const contract = path.join(root, "plugins", "zero-defect", "skills", "zero-defect", "references", "review-contract.md");
 const canonicalSkill = path.join(root, "plugins", "zero-defect", "skills", "zero-defect", "SKILL.md");
 const reviewerSchema = path.join(root, "scripts", "reviewer-output.schema.json");
+const meceSchema = path.join(root, "scripts", "mece-output.schema.json");
+const meceReference = path.join(root, "plugins", "zero-defect", "skills", "zero-defect", "references", "mece-report.md");
 const maxOutputBytes = 2 * 1024 * 1024;
 const timeoutMs = 10 * 60 * 1000;
 
@@ -107,7 +111,7 @@ async function computeStyleCensus(paths) {
   const emDashes = [];
   const negativeCandidates = new Map();
   for (const file of paths) {
-    const lines = (await readFile(file, "utf8")).split(/\r?\n/u);
+    const lines = (await readReviewText(file)).split(/\r?\n/u);
     lines.forEach((line, index) => {
       const lineNumber = index + 1;
       for (let offset = line.indexOf("—"); offset !== -1; offset = line.indexOf("—", offset + 1)) {
@@ -132,6 +136,7 @@ function promptFor(lens, assignment) {
 Read these canonical instructions in full before reviewing:
 - Shared contract: ${contract}
 - Lens prompt: ${reviewerPath(lens)}
+${lens === "mece" ? `- MECE report reference: ${meceReference}` : ""}
 
 Assignment:
 - Deliverable paths: ${assignment.paths.join(", ")}
@@ -150,7 +155,9 @@ Codex execution rules:
 - Do not modify files, write artifacts, run mutating commands, or delegate.
 - Codex transport overrides only the canonical text envelope: return the JSON object required by the supplied output schema, without Markdown fences.
 - Set status to complete only after completing the review; use incomplete for blocked capabilities, unreadable files, or truncated reads.
+- Keep findings scoped to the assigned lens. Only the anti-slop lens returns STYLE GATE and CONTEXT records, using its canonical formats. Other lenses must not add style-gate or informational character-count records.
 - Put each canonical finding line in findings, preserving severity, exact passage, anchor, impact, repair, and evidence. Use an empty array when there are no supported findings. Do not include a COMPLETE marker or a no-findings sentence.
+${lens === "mece" ? "- Return the assessment object in mece, separate from findings, following the MECE report reference. A completed not-applicable assessment has no findings. Include every observed responsibility row when applicable." : ""}
 - For incomplete status, reason must explain the blocker. For complete status, reason must be empty. The collector supplies the canonical completion marker deterministically.
 `;
 }
@@ -240,6 +247,11 @@ function runCodex(label, prompt, schema) {
         reject(error);
       }
     });
+    child.stdin.on("error", (error) => {
+      clearTimeout(timer);
+      child.kill("SIGTERM");
+      reject(new Error(`${label} could not receive its review assignment: ${error.message}`));
+    });
     child.stdin.end(prompt);
   });
 }
@@ -251,6 +263,7 @@ function adjudicationPrompt(assignment, results) {
 Read these canonical sources in full:
 - Review contract: ${contract}
 - Output format and clean-response rule: ${canonicalSkill}
+- MECE applicability, matrix, and clean-response exception: ${meceReference}
 
 Assignment:
 - Deliverable paths: ${assignment.paths.join(", ")}
@@ -262,24 +275,18 @@ Assignment:
 - Public web research: ${assignment.research}
 - Authoritative style-gate census: ${assignment.styleCensus}
 
-All seven independent lens results follow. Validate that each starts COMPLETE. Apply canonical workflow steps 10–13 and the canonical Output section exactly. Return only that final report, with no \`COMPLETE\` marker, preamble, raw lens output, or fenced wrapper.
+All eight independent lens results follow. Validate that each starts COMPLETE. Apply canonical workflow steps 10–13 and the canonical Output section exactly. Return only that final report, with no \`COMPLETE\` marker, preamble, raw lens output, or fenced wrapper.
 
 ${lensPacket}
 `;
-}
-
-function validateFinalReport(report) {
-  const clean = "I found no issues. Looks good to me. Ready to ship.";
-  if (report === clean) return;
-  if (!report.startsWith("Verdict:")) throw new Error("adjudicator report did not start with Verdict");
-  if (!/^Verdict: (Ready|Not ready)/u.test(report)) throw new Error("adjudicator report has an invalid verdict");
-  if (!report.includes("\n\nStyle gate: ")) throw new Error("adjudicator report omitted the style gate");
 }
 
 const rawArgs = process.argv.slice(2);
 const stdinMode = rawArgs.length === 1 && rawArgs[0] === "--stdin";
 const assignment = stdinMode ? await readStdinAssignment() : parseArgs(rawArgs);
 await requireReadable(reviewerSchema);
+await requireReadable(meceSchema);
+await requireReadable(meceReference);
 await requireReadable(contract);
 await requireReadable(canonicalSkill);
 for (const lens of lenses) await requireReadable(reviewerPath(lens));
@@ -289,12 +296,13 @@ if (assignment.check) {
   process.exit(0);
 }
 for (const file of assignment.paths) await requireReadable(file);
-assignment.styleCensus = await computeStyleCensus(assignment.paths);
+assignment.styleCensus = await computeStyleCensus(assignment.paths).catch((error) => fail(error.message));
 
-const settled = await Promise.allSettled(lenses.map((lens) => runCodex(lens, promptFor(lens, assignment), reviewerSchema)));
+const settled = await Promise.allSettled(lenses.map((lens) => runCodex(lens, promptFor(lens, assignment), lens === "mece" ? meceSchema : reviewerSchema)));
 const rawResults = {};
 const results = {};
 const failures = {};
+let mece;
 settled.forEach((result, index) => {
   const lens = lenses[index];
   if (result.status === "fulfilled") rawResults[lens] = result.value;
@@ -305,7 +313,7 @@ for (const lens of lenses) {
   try {
     const value = JSON.parse(rawResults[lens]);
     if (!value || typeof value !== "object" || Array.isArray(value) ||
-        Object.keys(value).sort().join(",") !== "findings,reason,status" ||
+        Object.keys(value).sort().join(",") !== (lens === "mece" ? "findings,mece,reason,status" : "findings,reason,status") ||
         !["complete", "incomplete"].includes(value.status) ||
         !Array.isArray(value.findings) || value.findings.some((finding) => typeof finding !== "string" || !finding.trim()) ||
         typeof value.reason !== "string") {
@@ -315,13 +323,18 @@ for (const lens of lenses) {
       throw new Error(value.reason.trim() ? `reviewer incomplete: ${value.reason}` : "incomplete reviewer omitted its reason");
     }
     if (value.reason.trim()) throw new Error("complete reviewer reported a failure reason");
-    results[lens] = ["COMPLETE", ...(value.findings.length ? value.findings : ["No supported findings."])].join("\n");
+    for (const finding of value.findings) validateFinding(finding);
+    if (lens === "mece") {
+      validateMece(value.mece, value.findings);
+      mece = value.mece;
+    }
+    results[lens] = ["COMPLETE", ...(value.findings.length ? value.findings : ["No supported findings."]), ...(lens === "mece" ? ["MECE ASSESSMENT", JSON.stringify(mece)] : [])].join("\n");
   } catch (error) {
     failures[lens] = error instanceof Error ? error.message : String(error);
   }
 }
 const completedLenses = lenses.filter((lens) => results[lens] !== undefined && !failures[lens]);
-const diagnostics = { completedLenses, results, rawResults, styleCensus: assignment.styleCensus };
+const diagnostics = { completedLenses, results, rawResults, mece, styleCensus: assignment.styleCensus };
 if (Object.keys(failures).length > 0) {
   process.stdout.write(`${JSON.stringify({ status: "incomplete", ...diagnostics, failures })}\n`);
   process.exit(3);
@@ -330,7 +343,7 @@ if (Object.keys(failures).length > 0) {
 let report;
 try {
   report = await runCodex("adjudicator", adjudicationPrompt(assignment, results));
-  validateFinalReport(report);
+  validateFinalReport(report, mece, Number(assignment.styleCensus.match(/^U\+2014 em dash: (\d+)/u)[1]));
   process.stdout.write(`${JSON.stringify({ status: "complete", completedLenses: lenses, failures: {}, report })}\n`);
 } catch (error) {
   process.stdout.write(`${JSON.stringify({ status: "incomplete", ...diagnostics, rejectedReport: report, failures: { adjudicator: error instanceof Error ? error.message : String(error) } })}\n`);

@@ -1,4 +1,4 @@
 interface:
   display_name: "Zero Defect"
-  short_description: "Seven-lens adversarial deliverable review"
+  short_description: "Eight-lens adversarial deliverable review"
   default_prompt: "Give this deliverable a Zero Defect review before I send it."

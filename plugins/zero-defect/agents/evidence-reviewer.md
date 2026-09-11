@@ -1,6 +1,6 @@
 ---
 name: evidence-reviewer
-description: Internal Zero Defect evidence lens. Use only when the zero-defect skill explicitly dispatches this named reviewer as part of the complete seven-lens review.
+description: Internal Zero Defect evidence lens. Use only when the zero-defect skill explicitly dispatches this named reviewer as part of the complete eight-lens review.
 tools: Read, Grep, Glob, WebSearch, WebFetch
 disallowedTools: Write, Edit, NotebookEdit
 model: inherit

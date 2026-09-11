@@ -1,6 +1,6 @@
 # Zero Defect
 
-Zero Defect is a Claude Cowork plugin for adversarial review of English-language business deliverables. Seven focused reviewers inspect promises, evidence, numbers, contradictions, decision gaps, language precision, and AI-writing slop, including Claude-associated rhetorical patterns, before another person relies on the work.
+Zero Defect is a Claude Cowork plugin for adversarial review of English-language business deliverables. Eight focused reviewers inspect promises, evidence, numbers, contradictions, decision gaps, language precision, AI-writing slop (including Claude-associated rhetorical patterns), and MECE responsibility coverage before another person relies on the work.
 
 It is designed for proposals, emails, candidate summaries, product plans, reports, requirements, spreadsheets, presentations, and similar knowledge work. It diagnoses defects and gives short repair directions. It does not rewrite the deliverable unless you separately ask Claude to revise it.
 
@@ -8,7 +8,7 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.4.0.zip` from the [latest GitHub release](https://github.com/mattlgroff/zero-defect/releases/latest), then:
+Download `zero-defect-1.5.0.zip` from the [Claude 1.5.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.5.0), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -58,7 +58,19 @@ In Claude Code, plugin skills are namespaced:
 
 The skill does not activate for ordinary drafting requests. It activates when you request a Zero Defect review or clearly request the same adversarial quality gate.
 
-The complete seven-reviewer workflow requires Cowork. If the host cannot invoke all seven plugin agents, the skill fails closed instead of silently substituting a single-model review.
+The complete workflow requires a Claude host that can invoke all eight plugin agents. A missing or failed reviewer makes the review incomplete.
+
+## MECE responsibility lens
+
+MECE runs within the normal Zero Defect review as its eighth lens. No separate skill or command is needed. It checks proposed accountability for overlapping owners, responsibilities without owners, and unclear handoffs. Shared work is allowed when accountability and boundaries are clear.
+
+The lens reads every target and determines applicability. Documents without substantive responsibility or decision-authority assignments receive no MECE findings or matrix. Applicable documents receive the observed responsibility-to-role matrix, including clear rows, even when no defects are found. Coverage is tested against stated scope; missing scope is disclosed rather than treated as proof of completeness.
+
+MECE findings merge with the other lenses under the existing `ZD-###` identifiers and severity rules. The matrix uses O for accountable owner, S for contributor, ? for unclear authority, and . for no stated assignment. Status cells call out CLEAR, OVERLAP, GAP, or UNCLEAR. Proposed repairs remain separate from observed assignments.
+
+See the [worked Markdown report](skills/zero-defect/references/mece-report.md#worked-markdown-report) for the matrix and its integration with findings.
+
+MECE is included in Claude 1.5.0 and Codex 0.2.0.
 
 ## Responding to findings
 
@@ -78,7 +90,7 @@ Identifiers remain attached to the same findings during follow-up on that report
 
 Zero Defect creates no files and includes no MCP server, hook, executable, package dependency, local server, or filesystem output.
 
-The seven reviewers read the deliverable directly with read-only tools. They open the exact paths named in the review assignment, confirm passages with a literal search, and report line anchors. They do not write, edit, or delete anything, and they do not browse beyond the assigned paths.
+The eight reviewers read the deliverable directly with read-only tools. They open the exact paths named in the review assignment, confirm passages with a literal search, and report line anchors. They do not write, edit, or delete anything, and they do not browse beyond the assigned paths.
 
 Public web research is disabled unless the review context clearly permits it or you approve it. Confidential names, candidate details, deal terms, private customer information, unreleased figures, credentials, and signed links must never be sent to web tools.
 
