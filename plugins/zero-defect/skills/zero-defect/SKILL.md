@@ -1,16 +1,16 @@
 ---
 name: zero-defect
 description: >
-  Performs a seven-lens adversarial review of completed English-language business deliverables for unintended promises, unsupported claims, numerical errors, contradictions, decision gaps, imprecise language, and AI-writing slop. Use when the user invokes /zero-defect or asks for a Zero Defect review, adversarial business review, final quality gate, promise check, evidence check, fact check, contradiction check, or AI-slop review. Do not use for ordinary drafting or revision unless the user explicitly requests this review.
+  Performs an eight-lens adversarial review of completed English-language business deliverables for unintended promises, unsupported claims, numerical errors, contradictions, decision gaps, imprecise language, AI-writing slop, and MECE responsibility coverage. Use when the user invokes /zero-defect or asks for a Zero Defect review, adversarial business review, final quality gate, promise check, evidence check, fact check, contradiction check, AI-slop review, or MECE responsibility review. Do not use for ordinary drafting or revision unless the user explicitly requests this review.
 allowed-tools: Read, Grep, Glob, Agent
 disallowed-tools: Write, Edit, NotebookEdit
 ---
 
 # Zero Defect review
 
-Run the complete review with all seven named plugin reviewers. If the host cannot invoke all seven, stop and say the review requires a host that supports plugin subagents. Do not replace them with a single-model review.
+Run the complete review with all eight named plugin reviewers. If the host cannot invoke all eight, stop and say the review requires a host that supports plugin subagents. Do not replace them with a single-model review.
 
-Read [review-contract.md](references/review-contract.md) before dispatch.
+Read [review-contract.md](references/review-contract.md) and [mece-report.md](references/mece-report.md) before dispatch. MECE is part of this review; its lens determines applicability from the deliverable and supplies a matrix only when relevant.
 
 Reviewers read the deliverable themselves. Never retype, summarize, or hand-render file content into an assignment. A transcription artifact becomes a reported defect that does not exist in the document.
 
@@ -32,8 +32,9 @@ Reviewers read the deliverable themselves. Never retype, summarize, or hand-rend
    - `zero-defect:decision-completeness-reviewer`
    - `zero-defect:language-precision-reviewer`
    - `zero-defect:anti-slop-reviewer`
-9. Start all seven before waiting for any result. Never give one reviewer another reviewer's conclusions. Do not run a sequential substitute when concurrent dispatch is unavailable.
-10. Validate every result. A completed lens must start with `COMPLETE` and must not report unreadable material, tool truncation, or a blocked capability. Treat a malformed or partial response as a failed lens. A lens that read its assigned files in full has complete coverage, whatever share of the document it found defects in.
+   - `zero-defect:mece-reviewer`
+9. Start all eight before waiting for any result. Never give one reviewer another reviewer's conclusions. Do not run a sequential substitute when concurrent dispatch is unavailable.
+10. Validate every result. A completed lens must start with `COMPLETE` and must not report unreadable material, tool truncation, or a blocked capability. Treat a malformed or partial response as a failed lens. A lens that read its assigned files in full has complete reading coverage, whatever share of the document it found defects in. Validate the MECE assessment envelope under its report reference. A completed not-applicable assessment counts as a completed lens; unverified scope coverage must remain explicit and cannot be mislabeled as a read failure.
 11. Adjudicate every allegation. Confirm the cited passage exists at the cited anchor with the read-only `Grep` tool before you publish it. Drop any finding whose passage you cannot match in the file, and say how many you dropped. Check that the stated impact follows and the severity matches the contract.
 12. Merge duplicates across lenses into one finding and record every lens that raised it. Rank by corroboration count within a severity band.
 13. Return the compact report. Diagnose and give repair directions. Do not rewrite the deliverable unless the user separately requests revision.
@@ -42,7 +43,7 @@ If any reviewer fails, returns malformed output, or cannot read required materia
 
 ## Output
 
-Use exactly this structure:
+Use this structure, followed by the MECE responsibility matrix when applicable as specified in [mece-report.md](references/mece-report.md):
 
 ```markdown
 Verdict: Ready | Not ready (style gate) | Not ready (N must fix) | Not ready (style gate, N must fix)
@@ -67,7 +68,7 @@ The bracketed lens list is the corroboration record. Preserve it.
 
 `Verdict: Ready` requires a passing style gate and zero Must fix findings. Should fix findings alone do not block.
 
-When all seven lenses return, the style gate passes, and no supported finding remains, return exactly:
+When all eight lenses return, the style gate passes, no supported finding remains, and MECE is not applicable, return exactly:
 
 ```text
 I found no issues. Looks good to me. Ready to ship.

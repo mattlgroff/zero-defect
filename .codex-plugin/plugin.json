@@ -1,7 +1,7 @@
 {
   "name": "zero-defect",
-  "version": "0.1.10",
-  "description": "Seven-lens adversarial review for English-language business deliverables",
+  "version": "0.2.0",
+  "description": "Eight-lens adversarial review for business deliverables, including MECE responsibility coverage",
   "author": {
     "name": "Matthew Groff",
     "url": "https://github.com/mattlgroff"
@@ -14,7 +14,7 @@
   "interface": {
     "displayName": "Zero Defect",
     "shortDescription": "Adversarial review before work ships",
-    "longDescription": "Run seven independent review lenses for promises, evidence, numbers, contradictions, decision gaps, precision, and writing quality.",
+    "longDescription": "Run eight independent review lenses for promises, evidence, numbers, contradictions, decision gaps, precision, writing quality, and MECE responsibility coverage.",
     "developerName": "Matthew Groff",
     "category": "Productivity",
     "capabilities": ["Read"],

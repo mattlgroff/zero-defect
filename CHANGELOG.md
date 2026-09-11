@@ -2,6 +2,23 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.5.0] / Codex 0.2.0 - 2026-09-11
+
+### Added
+
+- MECE as the eighth lens in the existing Zero Defect skill for Claude and Codex, with document-level applicability and no separate invocation.
+- Responsibility-to-role matrices that distinguish accountable owners, contributors, unclear authority, overlaps, and ownership gaps against stated scope.
+- Shared ZD finding identifiers and cross-lens deduplication for MECE defects, with observed assignments separated from proposed repairs.
+- A dedicated Codex MECE response schema, matrix retention in failure diagnostics, and rejection of reports that omit applicable matrix rows or coverage limitations.
+- A worked Markdown report and acceptance cases for role boundaries, shared work, governance, incomplete scope, and unrelated documents.
+
+### Fixed
+
+- Reject contradictory verdicts, incorrect style-census counts, malformed reviewer records, duplicate finding identifiers, and missing observed MECE rows while retaining failure evidence.
+- Preserve canonical anti-slop style-gate and informational punctuation records in the Codex transport.
+- Reject unsupported binary, empty, invalidly encoded, and non-file Codex inputs before dispatch.
+- Contain early reviewer stdin failures instead of crashing the collector and losing other results.
+
 ## [1.4.0] - 2026-09-03
 
 ### Added
@@ -50,6 +67,7 @@ All notable changes to Zero Defect are documented here.
 - Reviewers for commitments, evidence, numbers, consistency, decision completeness, language precision, and AI-writing slop.
 - Read-only review behavior, literal passage verification, contextual severity rules, and acceptance cases.
 
+[1.5.0]: https://github.com/mattlgroff/zero-defect/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/mattlgroff/zero-defect/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/mattlgroff/zero-defect/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/mattlgroff/zero-defect/compare/v1.0.0...v1.2.0

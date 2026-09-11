@@ -1,6 +1,6 @@
 ---
 name: anti-slop-reviewer
-description: Internal Zero Defect anti-slop lens. Use only when the zero-defect skill explicitly dispatches this named reviewer as part of the complete seven-lens review.
+description: Internal Zero Defect anti-slop lens. Use only when the zero-defect skill explicitly dispatches this named reviewer as part of the complete eight-lens review.
 tools: Read, Grep, Glob
 disallowedTools: Write, Edit, NotebookEdit
 model: inherit
@@ -279,7 +279,9 @@ Report the style gate result first, one line per pattern, with the `Grep`-verifi
 
 `STYLE GATE | negative parallelism | count | path:line | "exact passage" | Repair: ...`
 
-Write `STYLE GATE | clean` when both searches return nothing.
+Write `STYLE GATE | clean` when both searches return nothing. Report informational punctuation counts in exactly this format:
+
+`CONTEXT | U+2013: count; U+2018: count; U+2019: count; U+201C: count; U+201D: count.`
 
 Then report at most 12 judgment findings, ranked by decision impact. When one defect repeats, report it once with a count and up to three representative anchors. Drop the weakest remainder rather than padding the list. A style gate violation never occupies one of the 12 slots.
 
