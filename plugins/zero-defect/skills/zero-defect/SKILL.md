@@ -3,14 +3,14 @@ name: zero-defect
 description: >
   Performs an eight-lens adversarial review of completed English-language business deliverables for unintended promises, unsupported claims, numerical errors, contradictions, decision gaps, imprecise language, AI-writing slop, and MECE responsibility coverage. Use when the user invokes /zero-defect or asks for a Zero Defect review, adversarial business review, final quality gate, promise check, evidence check, fact check, contradiction check, AI-slop review, or MECE responsibility review. Do not use for ordinary drafting or revision unless the user explicitly requests this review.
 allowed-tools: Read, Grep, Glob, Agent
-disallowed-tools: Write, Edit, NotebookEdit
+disallowed-tools: Edit, NotebookEdit
 ---
 
 # Zero Defect review
 
 Run the complete review with all eight named plugin reviewers. If the host cannot invoke all eight, stop and say the review requires a host that supports plugin subagents. Do not replace them with a single-model review.
 
-Read [review-contract.md](references/review-contract.md) and [mece-report.md](references/mece-report.md) before dispatch. MECE is part of this review; its lens determines applicability from the deliverable and supplies a matrix only when relevant.
+Read [review-contract.md](references/review-contract.md) and [mece-report.md](references/mece-report.md) before dispatch. Read [review-form.md](references/review-form.md) before rendering the interactive form after the report. MECE is part of this review; its lens determines applicability from the deliverable and supplies a matrix only when relevant.
 
 Reviewers read the deliverable themselves. Never retype, summarize, or hand-render file content into an assignment. A transcription artifact becomes a reported defect that does not exist in the document.
 
@@ -38,6 +38,8 @@ Reviewers read the deliverable themselves. Never retype, summarize, or hand-rend
 11. Adjudicate every allegation. Confirm the cited passage exists at the cited anchor with the read-only `Grep` tool before you publish it. Drop any finding whose passage you cannot match in the file, and say how many you dropped. Check that the stated impact follows and the severity matches the contract.
 12. Merge duplicates across lenses into one finding and record every lens that raised it. Rank by corroboration count within a severity band.
 13. Return the compact report. Diagnose and give repair directions. Do not rewrite the deliverable unless the user separately requests revision.
+14. When the host has an artifact capability, render the report as the interactive review form specified in [review-form.md](references/review-form.md): one card per finding with the original passage, two or three concrete repair options shown as legal redlines with their consequences, one option marked Recommended and preselected, a Skip option, a comment box, and a live `Reply to Claude` block with a Copy button. Tell the user to choose and paste the reply back. Without an artifact capability, say the form was skipped. The only file this skill may write is that form, in the session scratchpad; the deliverable stays untouched.
+15. When the pasted decisions arrive, return the accepted repairs as an edit list keyed by identifier. Apply them only if the user asks for revision.
 
 If any reviewer fails, returns malformed output, or cannot read required material, do not claim a complete review. Return `Verdict: Not ready` and identify the incomplete lens under Must fix.
 
@@ -68,7 +70,9 @@ The bracketed lens list is the corroboration record. Preserve it.
 
 `Verdict: Ready` requires a passing style gate and zero Must fix findings. Should fix findings alone do not block.
 
-When all eight lenses return, the style gate passes, no supported finding remains, and MECE is not applicable, return exactly:
+The interactive form presents these same findings and identifiers. It never adds a finding or changes the verdict.
+
+When all eight lenses return, the style gate passes, no supported finding remains, and MECE is not applicable, return exactly and render no form:
 
 ```text
 I found no issues. Looks good to me. Ready to ship.

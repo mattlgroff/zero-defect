@@ -2,6 +2,18 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.6.0] - 2026-09-19
+
+### Added
+
+- Interactive review form for Claude hosts with artifacts (Cowork, Claude Code, claude.ai). Each finding card shows the anchored passage, two or three concrete repair options rendered as legal redlines with their consequences, one Recommended option preselected, a Skip option, and a comment box. A live `Reply to Claude` block with a Copy button hands the decisions back in one paste.
+- `review-form.md` reference specifying when to render, how repair options are drafted, the redline rendering, the reply format, and how decisions turn into an edit list.
+
+### Changed
+
+- The skill may now write one file: the review form HTML in the session scratchpad, for hosts whose artifact tool publishes from a file. The deliverable remains read-only. `Edit` and `NotebookEdit` stay disallowed.
+- Dropped `$schema` from the Claude plugin manifest to silence the Claude for Teams sync warning.
+
 ## [1.5.0] / Codex 0.2.0 - 2026-09-11
 
 ### Added
