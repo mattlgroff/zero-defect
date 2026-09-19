@@ -1,7 +1,7 @@
 {
   "name": "zero-defect",
   "displayName": "Zero Defect",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Eight-lens adversarial review for business deliverables, including MECE responsibility coverage",
   "author": {
     "name": "Matthew Groff",

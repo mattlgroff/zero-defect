@@ -2,6 +2,12 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.6.1] - 2026-09-19
+
+### Changed
+
+- The Codex distribution now carries the same version number as the Claude distribution. One release, one tag, one number. Codex 0.3.0 becomes 1.6.1; no runtime change.
+
 ## [1.6.0] / Codex 0.3.0 - 2026-09-19
 
 ### Added

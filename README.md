@@ -17,7 +17,7 @@ The reviewer prompts, review contract, severity rules, and report format exist o
 
 Codex requires Node.js 22 or newer and an installed, authenticated Codex CLI. The collector uses independent `codex exec` processes instead of native noninteractive subagents because current Codex releases can lose subagent tasks or results in headless execution. On sandboxed hosts, launching authenticated nested Codex processes may require approval; denying it makes the review incomplete.
 
-The current releases are **Claude 1.6.0** and **Codex 0.3.0**. Both include the MECE responsibility lens. The distributions remain independently versioned.
+The current release is **1.6.1** for both the Claude and Codex distributions. They share one version number and one git tag per release.
 
 ### Install in Codex from GitHub
 
@@ -43,7 +43,7 @@ codex plugin add zero-defect@zero-defect-codex
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.6.0.zip` from the [Claude 1.6.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.0), then:
+Download `zero-defect-1.6.1.zip` from the [1.6.1 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.1), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -105,7 +105,7 @@ MECE findings merge with the other lenses under the existing `ZD-###` identifier
 
 See the [worked Markdown report](plugins/zero-defect/skills/zero-defect/references/mece-report.md#worked-markdown-report) for the matrix and its integration with findings.
 
-MECE is included in Claude 1.5.0 and Codex 0.2.0.
+MECE has been included since 1.5.0 (Codex 0.2.0 under the old separate numbering).
 
 ## Interactive review form
 
