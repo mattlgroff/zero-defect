@@ -8,7 +8,7 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.6.0.zip` from the [Claude 1.6.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.0), then:
+Download `zero-defect-1.6.1.zip` from the [1.6.1 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.1), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -70,7 +70,7 @@ MECE findings merge with the other lenses under the existing `ZD-###` identifier
 
 See the [worked Markdown report](skills/zero-defect/references/mece-report.md#worked-markdown-report) for the matrix and its integration with findings.
 
-MECE is included in Claude 1.5.0 and Codex 0.2.0.
+MECE has been included since 1.5.0 (Codex 0.2.0 under the old separate numbering).
 
 ## Interactive review form
 
