@@ -7,7 +7,7 @@ description: Performs an eight-lens adversarial review of completed English-lang
 
 Run eight fresh, independent, read-only Codex reviewer processes and adjudicate their findings. Never replace them with one combined review.
 
-Resolve this skill's installed directory to an absolute path. Read the canonical Claude workflow at `../../plugins/zero-defect/skills/zero-defect/SKILL.md` and its linked review contract and MECE report reference before doing review work. They are authoritative. Follow canonical workflow steps 1–5, 7, and 10–13, plus the entire canonical Output section. The Codex-specific dispatch below replaces canonical steps 6, 8, and 9; do not run those steps separately.
+Resolve this skill's installed directory to an absolute path. Read the canonical Claude workflow at `../../plugins/zero-defect/skills/zero-defect/SKILL.md` and its linked review contract and MECE report reference before doing review work. They are authoritative. Follow canonical workflow steps 1–5, 7, and 10–15, plus the entire canonical Output section. Step 14 renders the interactive review form from `references/review-form.md` next to the canonical skill; on ChatGPT and ChatGPT Work publish it as a ChatGPT Site, and in the Codex CLI write the HTML beside the session working files and give the user the path. The Codex-specific dispatch below replaces canonical steps 6, 8, and 9; do not run those steps separately.
 
 ## Supported local inputs
 

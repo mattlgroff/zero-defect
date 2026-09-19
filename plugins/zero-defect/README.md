@@ -8,7 +8,7 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.5.0.zip` from the [Claude 1.5.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.5.0), then:
+Download `zero-defect-1.6.0.zip` from the [Claude 1.6.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.0), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -72,6 +72,12 @@ See the [worked Markdown report](skills/zero-defect/references/mece-report.md#wo
 
 MECE is included in Claude 1.5.0 and Codex 0.2.0.
 
+## Interactive review form
+
+The review also renders as an interactive form: an Artifact on Claude Code, Claude Cowork, and claude.ai, or a ChatGPT Site on ChatGPT, ChatGPT Work, and Codex. Each finding card shows the anchored passage, two or three concrete repair options drawn as legal redlines against the original, the consequence of each, one option marked Recommended and preselected, a Skip option, and a comment box. Filter chips switch between All, Must fix, and Should fix. A live `Prompt to copy-paste back` block at the bottom collects your choices; press Copy and paste it into the chat.
+
+Choosing an option does not change the deliverable. Claude returns the accepted repairs as an edit list by identifier and applies them only when you ask for revision. A host that cannot show an HTML page gets the Markdown report alone.
+
 ## Responding to findings
 
 Every issue in a Zero Defect report receives a unique identifier such as `ZD-001`. The identifier is assigned after duplicate findings from different lenses are merged, so one issue keeps one identifier even when several lenses found it.
@@ -88,7 +94,7 @@ Identifiers remain attached to the same findings during follow-up on that report
 
 ## Privacy and behavior
 
-Zero Defect creates no files and includes no MCP server, hook, executable, package dependency, local server, or filesystem output.
+Zero Defect includes no MCP server, hook, executable, package dependency, or local server. It writes no files except the optional review form HTML in the session scratchpad on hosts whose artifact tool publishes from a file. The deliverable is never modified by the review.
 
 The eight reviewers read the deliverable directly with read-only tools. They open the exact paths named in the review assignment, confirm passages with a literal search, and report line anchors. They do not write, edit, or delete anything, and they do not browse beyond the assigned paths.
 
