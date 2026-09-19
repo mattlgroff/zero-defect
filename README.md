@@ -17,7 +17,7 @@ The reviewer prompts, review contract, severity rules, and report format exist o
 
 Codex requires Node.js 22 or newer and an installed, authenticated Codex CLI. The collector uses independent `codex exec` processes instead of native noninteractive subagents because current Codex releases can lose subagent tasks or results in headless execution. On sandboxed hosts, launching authenticated nested Codex processes may require approval; denying it makes the review incomplete.
 
-The current releases are **Claude 1.6.0** and **Codex 0.2.0**. Both include the MECE responsibility lens. The distributions remain independently versioned.
+The current releases are **Claude 1.6.0** and **Codex 0.3.0**. Both include the MECE responsibility lens. The distributions remain independently versioned.
 
 ### Install in Codex from GitHub
 
@@ -109,9 +109,9 @@ MECE is included in Claude 1.5.0 and Codex 0.2.0.
 
 ## Interactive review form
 
-On Claude hosts with artifacts (Cowork, Claude Code, claude.ai), the review also renders as an interactive form. Each finding card shows the anchored passage, two or three concrete repair options drawn as legal redlines against the original, the consequence of each, one option marked Recommended and preselected, a Skip option, and a comment box. Filter chips switch between All, Must fix, and Should fix. A live `Reply to Claude` block at the bottom collects your choices; press Copy and paste it back into the chat.
+The review also renders as an interactive form: an Artifact on Claude Code, Claude Cowork, and claude.ai, or a ChatGPT Site on ChatGPT, ChatGPT Work, and Codex. Each finding card shows the anchored passage, two or three concrete repair options drawn as legal redlines against the original, the consequence of each, one option marked Recommended and preselected, a Skip option, and a comment box. Filter chips switch between All, Must fix, and Should fix. A live `Prompt to copy-paste back` block at the bottom collects your choices; press Copy and paste it into the chat.
 
-Choosing an option does not change the deliverable. Claude returns the accepted repairs as an edit list by identifier and applies them only when you ask for revision. Hosts without artifacts get the Markdown report alone.
+Choosing an option does not change the deliverable. Claude returns the accepted repairs as an edit list by identifier and applies them only when you ask for revision. A host that cannot show an HTML page gets the Markdown report alone.
 
 ## Responding to findings
 

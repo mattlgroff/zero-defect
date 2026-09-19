@@ -168,7 +168,7 @@ Expected:
 
 ## Interactive review form
 
-Target: the defect-rich sales proposal, in Cowork or Claude Code.
+Target: the defect-rich sales proposal, in Cowork, Claude Code, claude.ai, ChatGPT, or Codex.
 
 Expected:
 
@@ -176,10 +176,10 @@ Expected:
 - each card shows the anchored original passage, two or three repair options as word-level redlines (deletions struck, insertions underlined), a one-sentence consequence per option, exactly one option marked Recommended and preselected, and a Skip option
 - no option contains U+2014, negative parallelism, or a fact absent from the deliverable
 - style gate items and incomplete-reviewer items appear as read-only cards without options
-- the `Reply to Claude` block updates live and the Copy button copies it
+- the `Prompt to copy-paste back` block updates live and the Copy button copies it
 - pasting the reply returns an edit list keyed by identifier and does not modify the deliverable until revision is requested
 - a clean review (`I found no issues...`) renders no form
-- a host without an artifact capability returns the Markdown report and states that the form was skipped
+- a host that cannot show an HTML page returns the Markdown report and states that the form was skipped
 
 ## Finding identifiers
 

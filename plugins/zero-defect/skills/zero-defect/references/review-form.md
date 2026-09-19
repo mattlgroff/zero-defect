@@ -1,16 +1,22 @@
 # Interactive review form
 
-After the compact report, offer the same findings as a single-file HTML form so the reader can choose a repair for each finding, comment, and hand the decisions back in one paste. The form is a presentation of the adjudicated report. It never adds a finding the report lacks and never changes a verdict.
+After the compact report, offer the same findings as a single-file HTML form so the reader can choose a repair for each finding, comment, and hand the decisions back by pasting one prompt into the chat. The form is a presentation of the adjudicated report. It never adds a finding the report lacks and never changes a verdict.
 
 ## When to render
 
-Render the form when the host exposes an artifact capability:
+The form is one self-contained HTML page. Publish it with whatever the host offers, then tell the user where it is:
 
-- Cowork: `mcp__cowork__create_artifact`, then `mcp__cowork__verify_artifact`. Later rounds use `mcp__cowork__update_artifact`.
-- Claude Code: write the HTML to the session scratchpad and publish it with the `Artifact` tool. The scratchpad file is the only file this skill may write. Never write inside the deliverable's folder.
-- claude.ai chat: a native HTML artifact.
+| Host | How to publish |
+|---|---|
+| Claude Code | Write the HTML to the session scratchpad, then publish it with the `Artifact` tool. |
+| Claude Cowork | `mcp__cowork__create_artifact`, then `mcp__cowork__verify_artifact`. Later rounds use `mcp__cowork__update_artifact`. |
+| claude.ai | A native HTML artifact. |
+| ChatGPT and ChatGPT Work | A ChatGPT Site. |
+| Codex | A ChatGPT Site when the host offers one. In the Codex CLI, write the HTML next to the session's working files and give the user the path to open in a browser. |
 
-If no artifact capability exists, or the user says to skip it, return the Markdown report alone and say the form was skipped. Never block the report on the form.
+The scratchpad or session file is the only file this skill may write. Never write inside the deliverable's folder.
+
+If the host has no way to show an HTML page, or the user says to skip it, return the Markdown report alone and say the form was skipped. Never block the report on the form.
 
 ## Drafting repair options
 
@@ -49,9 +55,9 @@ Single HTML file, vanilla JS, inline CSS, no external requests, no fonts loaded 
    - radio group of options: letter, axis tag, one-line label, `Recommended` mark, redline, consequence sentence
    - optional comment textarea
 5. MECE matrix, when the report has one, rendered as a table below the cards.
-6. Footer: a live `Reply to Claude` textarea regenerated on every input, and a `Copy` button using `navigator.clipboard.writeText` with a fallback that selects the text.
+6. Footer: a live `Prompt to copy-paste back` textarea regenerated on every input, and a `Copy` button using `navigator.clipboard.writeText` with a fallback that selects the text. Label it exactly that way on every host, so the same form works in Claude and ChatGPT.
 
-## Reply format
+## Prompt format
 
 ```text
 zero-defect round N decisions:
@@ -60,9 +66,9 @@ ZD-004 skip
 ZD-005 B broader scope — keep the retest reference
 ```
 
-One line per finding with options. The letter is the choice; the axis tag repeats for readability. Findings without options are omitted from the reply.
+One line per finding with options. The letter is the choice; the axis tag repeats for readability. Findings without options are omitted from the prompt.
 
-## Handling the reply
+## Handling the pasted prompt
 
 When the pasted decisions arrive:
 
