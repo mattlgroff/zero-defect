@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "zero-defect",
   "displayName": "Zero Defect",
   "version": "1.5.0",
