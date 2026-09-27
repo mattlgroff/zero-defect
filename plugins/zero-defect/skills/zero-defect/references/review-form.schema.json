@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zero Defect review form data",
+  "description": "The only thing a model writes for the review form. scripts/fill-review-form.mjs validates it against these rules and injects it into review-form.html.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "verdict",
+    "styleGate",
+    "documents",
+    "findings"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Deliverable file name or title."
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Review round; defaults to 1."
+    },
+    "verdict": {
+      "type": "string",
+      "pattern": "^(Ready|Not ready.*)$",
+      "description": "The report's verdict text after 'Verdict: '."
+    },
+    "styleGate": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "audience": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "supportingMaterial": {
+      "type": "string",
+      "description": "Supporting file names, or omit when none was supplied."
+    },
+    "reviewers": {
+      "type": "string",
+      "description": "One sentence naming the reviewers that ran."
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "severity",
+          "defect"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ZD-[0-9]{3,}$"
+          },
+          "severity": {
+            "enum": [
+              "style",
+              "must",
+              "should",
+              "incomplete"
+            ]
+          },
+          "lenses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "anchor": {
+            "type": "string",
+            "description": "path:line from the report."
+          },
+          "original": {
+            "type": "string",
+            "description": "The anchored passage exactly as the report quotes it. Required when options are present."
+          },
+          "defect": {
+            "type": "string",
+            "minLength": 1
+          },
+          "impact": {
+            "type": "string"
+          },
+          "repair": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "maxItems": 3,
+            "description": "Two or three repair options for Must fix and Should fix findings; a style gate finding may carry one mechanical fix. Omit for incomplete-reviewer findings. Keep original is added by the form.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "text",
+                "consequence",
+                "mightLose"
+              ],
+              "properties": {
+                "id": {
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "axis": {
+                  "type": "string",
+                  "description": "What the options trade off, such as 'narrower promise' or 'named owner'."
+                },
+                "label": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Replacement for the original passage only; empty string deletes it."
+                },
+                "consequence": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "mightLose": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "What the change could cost, or 'nothing material'."
+                },
+                "recommended": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "meceMatrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "columns",
+        "rows"
+      ],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The deliverable files, by path. fill-review-form.mjs reads each file and embeds its text; relative paths resolve from the data file's folder.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

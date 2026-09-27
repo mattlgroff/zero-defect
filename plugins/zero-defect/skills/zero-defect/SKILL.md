@@ -2,7 +2,7 @@
 name: zero-defect
 description: >
   Performs an eight-lens adversarial review of completed English-language business deliverables for unintended promises, unsupported claims, numerical errors, contradictions, decision gaps, imprecise language, AI-writing slop, and MECE responsibility coverage. Use when the user invokes /zero-defect or asks for a Zero Defect review, adversarial business review, final quality gate, promise check, evidence check, fact check, contradiction check, AI-slop review, or MECE responsibility review. Do not use for ordinary drafting or revision unless the user explicitly requests this review.
-allowed-tools: Read, Grep, Glob, Agent
+allowed-tools: Read, Grep, Glob, Agent, Write, Bash(node:*)
 disallowed-tools: Edit, NotebookEdit
 ---
 
@@ -38,7 +38,7 @@ Reviewers read the deliverable themselves. Never retype, summarize, or hand-rend
 11. Adjudicate every allegation. Confirm the cited passage exists at the cited anchor with the read-only `Grep` tool before you publish it. Drop any finding whose passage you cannot match in the file, and say how many you dropped. Check that the stated impact follows and the severity matches the contract.
 12. Merge duplicates across lenses into one finding and record every lens that raised it. Rank by corroboration count within a severity band.
 13. Return the compact report. Diagnose and give repair directions. Do not rewrite the deliverable unless the user separately requests revision.
-14. Render the report as the interactive review form specified in [review-form.md](references/review-form.md): one card per finding with the original passage, two or three concrete repair options shown as legal redlines with their consequences, one option marked Recommended and preselected, a Skip option, a comment box, and a live `Prompt to copy-paste back` block with a Copy button. Publish it as an Artifact on Claude hosts or a ChatGPT Site on ChatGPT and Codex, per the host table in the reference. Tell the user to choose and paste the prompt back. If the host cannot show an HTML page, say the form was skipped. The only file this skill may write is that form, outside the deliverable's folder.
+14. Offer the interactive review form specified in [review-form.md](references/review-form.md): the deliverable with each finding shown in place as a tracked change, and a severity-sorted to-do list beside it. Write only the JSON data file that the form reference defines, run `scripts/fill-review-form.mjs` to validate it and fill the template, then publish the resulting file by path as that reference's host table says. Never write or edit the form's HTML yourself. Tell the user to decide each finding and paste the copied decisions back. If the host cannot run the script or show a page, say the form was skipped.
 15. When the pasted decisions arrive, return the accepted repairs as an edit list keyed by identifier. Apply them only if the user asks for revision.
 
 If any reviewer fails, returns malformed output, or cannot read required material, do not claim a complete review. Return `Verdict: Not ready` and identify the incomplete lens under Must fix.

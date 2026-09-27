@@ -43,6 +43,7 @@ These examples show where the line falls:
 - `No one has accepted responsibility for the rehearsal.` An accurate report of a gap. A finding only if the deliverable's own request cannot proceed without an owner.
 - `Our team is executing well.` with nothing in the deliverable or supporting material behind it. An unsupported assurance under evidence, not slop: Should fix.
 - The author's own price, product capability, customer result, or internal metric, stated with no supporting material. No finding, unless the deliverable contradicts it, overstates its own stated basis, or cites a source it does not supply.
+- `Industry experts agree this is the future of recruiting.` An appeal to unnamed authority is a demonstrated defect, not merely an unchecked claim: the reader cannot know who agrees or why. Must fix.
 Consolidate overlapping diagnoses for the same passage under the highest-impact defect. Group repeated instances of one defect with a count and representative locations.
 
 Each lens reports at most 12 findings, ranked by decision impact. A lens that has more must group and drop, never pad. Style gate violations are exempt from the cap.
@@ -104,6 +105,7 @@ For uncited material claims, search using generalized claim language and public 
 When a claim cannot be checked, because no supporting material covers it, research is not permitted, or no safe query exists, do not report it merely because you could not check it:
 
 - The author's first-party facts are theirs to know: their own prices, terms, dates, customers, results, product capabilities, team, and internal metrics. Report one only when the deliverable contradicts it, overstates its own stated basis, or cites a source it does not supply.
+- An appeal to unnamed authority (`experts agree`, `research shows`, `studies prove`) is not an unchecked claim. It is a defect in itself; see the boundary example above.
 - Report an unchecked external claim, such as a market statistic, a third-party fact, a research finding, or a comparison with a competitor, only when the audience would rely on it for the decision. Group every such claim into one Should fix finding that lists what to confirm. Do not raise one finding per claim.
 
 When supporting material exists, any difference from it counts when it changes a claim: an added detail, qualifier, timing, scope, or cause, a renamed requirement, or a named period substituted for a relative one. Wording drift is Should fix. A difference that creates an unauthorized promise or changes a number is Must fix.
