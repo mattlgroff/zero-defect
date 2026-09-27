@@ -16,14 +16,14 @@ Reviewers read the deliverable themselves. Never retype, summarize, or hand-rend
 
 ## Workflow
 
-1. Identify the deliverable and resolve it to exact paths. Report the paths you resolved before dispatch so the user can correct the target. When the deliverable exists only in the conversation, pass the text inline and say so in the assignment.
+1. Identify the deliverable and resolve it to exact paths. Report the paths you resolved before dispatch so the user can correct the target. When the deliverable exists only in the conversation, pass the text inline and say so in the assignment. Also identify supporting material the deliverable was written from, such as notes, a fact sheet, a prior agreement, or source data, when the user supplied it or the conversation already contains it. Do not go looking for more. Pass its paths as supporting material, or say `none supplied`.
 2. Confirm every path is readable through the host's document tools. For a format the host cannot read directly, stop and ask the user for an accessible text, PDF, or document rendition. Do not create or convert files.
 3. Infer audience and purpose when the conversation makes them clear. Otherwise ask one combined question: `Who will read this, and what decision or action should it drive?`
 4. If the deliverable contains commitments whose approval is unclear, ask one additional question identifying which commitments are intentional and authorized. Ask no other questions unless the review target itself is ambiguous.
 5. Decide whether external research is allowed. Infer permission only when the material and every claim to be checked are clearly public. Otherwise ask whether public web research is allowed and what must not leave the conversation. No permission means no web use.
-6. Run the style gate scan yourself with the read-only Grep tool before dispatch. Search literally for U+2014 em dashes and search case-insensitively for the negative-parallelism structures defined in the review contract. Count exact matches and record their anchors. These counts are the report's ground truth, never a lens estimate.
+6. Run the style gate scan yourself with the read-only Grep tool before dispatch, over the deliverable only, never the supporting material. Search literally for U+2014 em dashes and search case-insensitively for the negative-parallelism structures defined in the review contract. Count exact matches and record their anchors. These counts are the report's ground truth, never a lens estimate.
 
-7. Write one short assignment per lens: the exact paths, audience, purpose, desired action, approved commitments, confidentiality boundary, research permission, the style gate census, and the lens instruction. Do not paste file contents into the assignment.
+7. Write one short assignment per lens: the exact paths, supporting material paths or `none supplied`, audience, purpose, desired action, approved commitments, confidentiality boundary, research permission, the style gate census, and the lens instruction. Do not paste file contents into the assignment.
 8. Invoke these plugin agents concurrently:
    - `zero-defect:commitments-reviewer`
    - `zero-defect:evidence-reviewer`

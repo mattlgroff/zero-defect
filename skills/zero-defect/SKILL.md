@@ -29,6 +29,10 @@ Start the constant command `node <absolute-collector-path> --stdin` in an execut
 - `confidentiality`: confidentiality boundary string
 - `research`: `allowed` or `denied`
 
+Add `supportingPaths`, an array of absolute paths, when canonical step 1 found supporting material. Reviewers read it as evidence; it is not reviewed or counted in the style census. Omit the field when there is none.
+
+Reviewers run on GPT-6 Astra by default. The `ZERO_DEFECT_CODEX_MODEL` environment variable overrides it; an empty value uses the Codex default model.
+
 Wait on that exact execution session until it exits. Never interpolate, quote, or evaluate assignment values as shell syntax. Never send the JSON before the execution tool has returned a live session ID. The collector itself uses direct process spawning rather than a shell. Do not start a second collector while the first is active.
 
 The collector starts authenticated nested Codex processes. If the current sandbox blocks access to Codex authentication, request approval to launch this one trusted plugin command outside the outer sandbox. The eight nested reviewers still run with `--sandbox read-only`, ephemeral sessions, ignored user configuration and rules, and a restricted shell environment. If approval is denied or unavailable, fail closed.

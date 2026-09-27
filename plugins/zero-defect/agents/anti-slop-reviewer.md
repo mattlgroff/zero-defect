@@ -131,6 +131,8 @@ Flag formulaic endings that mention challenges, continued evolution, future pros
 
 Flag phrases addressed to the requester instead of the deliverable's audience, including `I hope this helps`, `Certainly`, `Of course`, `Here is`, `Let me know`, `Would you like`, and knowledge-cutoff disclaimers. Do not flag wording intentionally required by an email, form, proposal, playbook, or template.
 
+Greetings, sign-offs such as `Best,` and `Thanks,`, and signatures are never findings. A closing courtesy such as `Happy to walk through any detail` or `Let me know if you have questions` is a normal close in an email or message and not a finding there. In a proposal, report, or other formal document it adds nothing: Should fix.
+
 ### 13. Prompt and placeholder residue
 
 Flag leaked bracketed placeholders, template instructions, fake quotations, response preambles, prompt text, unfinished task markers, citation tokens, and markup copied from an assistant interface. Do not flag placeholders or instructions that are intentional features of a template or playbook.

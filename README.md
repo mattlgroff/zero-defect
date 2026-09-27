@@ -17,7 +17,7 @@ The reviewer prompts, review contract, severity rules, and report format exist o
 
 Codex requires Node.js 22 or newer and an installed, authenticated Codex CLI. The collector uses independent `codex exec` processes instead of native noninteractive subagents because current Codex releases can lose subagent tasks or results in headless execution. On sandboxed hosts, launching authenticated nested Codex processes may require approval; denying it makes the review incomplete.
 
-The current release is **1.6.1** for both the Claude and Codex distributions. They share one version number and one git tag per release.
+The current release is **1.7.0** for both the Claude and Codex distributions. They share one version number and one git tag per release.
 
 ### Install in Codex from GitHub
 
@@ -43,7 +43,7 @@ codex plugin add zero-defect@zero-defect-codex
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.6.1.zip` from the [1.6.1 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.1), then:
+Download `zero-defect-1.7.0.zip` from the [1.7.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.7.0), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -94,6 +94,20 @@ In Claude Code, plugin skills are namespaced:
 The skill does not activate for ordinary drafting requests. It activates when you request a Zero Defect review or clearly request the same adversarial quality gate.
 
 The Claude workflow requires a host that can invoke all eight plugin agents. Codex uses the collector described above. A missing or failed reviewer makes the review incomplete.
+
+### Supporting material
+
+Attach or name what the deliverable was written from, such as call notes, a fact sheet, a pricing sheet, or a prior agreement, and the reviewers check the deliverable against it. That is how a review catches a promised date the notes say is not agreed, or a price that drifted from the quote.
+
+```text
+Give this proposal a Zero Defect review. The facts it relies on are in call-notes.md.
+```
+
+Without supporting material, reviewers judge claims only against the deliverable itself. They do not flag your own prices, results, product capabilities, or metrics just because no evidence was attached. Unchecked outside claims the reader would rely on, such as market statistics, are grouped into one Should fix item listing what to confirm.
+
+### Codex model
+
+Codex reviewers run on GPT-6 Astra, which had the best precision in single-reviewer tests. Set `ZERO_DEFECT_CODEX_MODEL` to use another model, or to an empty value for the Codex default.
 
 ## MECE responsibility lens
 

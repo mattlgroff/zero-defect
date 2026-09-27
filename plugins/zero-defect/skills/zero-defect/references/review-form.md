@@ -23,7 +23,8 @@ If the host has no way to show an HTML page, or the user says to skip it, return
 For every Must fix and Should fix finding, draft two or three candidate repairs from the lens's repair direction. Each option is a concrete replacement for the anchored passage, not advice.
 
 - Options differ in a way the reader would actually weigh: scope, formality, strength of commitment, who owns an action. Label the axis in a short tag, such as `formal`, `broader scope`, `narrower promise`, `named owner`.
-- Every option states its consequence in one sentence: what the reader gains and what it gives up.
+- Every option states its consequence in one sentence, what the reader gains, and a separate `Might lose:` line naming what the change could cost: a qualification, a supported fact, warmth or firmness, the author's voice, or a named owner. Write `Might lose: nothing material` when that is true.
+- Each option replaces the smallest span that fixes the defect, so options for several findings on one line stay compatible.
 - Mark exactly one option `Recommended` and preselect it. The recommendation follows the finding's impact statement.
 - Always include `Skip. Leave as is.` as the last option.
 - Options must not introduce a fact, number, name, or date absent from the deliverable or the supplied evidence. Where a fact is needed, the option carries a bracketed instruction such as `[NEED: retest window from the SOW]`.
@@ -52,7 +53,7 @@ Single HTML file, vanilla JS, inline CSS, no external requests, no fonts loaded 
    - identifier, severity tag, lens list in brackets, anchor
    - original passage in monospace
    - `Defect.` and `Impact.` sentences from the report; `Why.` in a callout when the repair direction needs a reason
-   - radio group of options: letter, axis tag, one-line label, `Recommended` mark, redline, consequence sentence
+   - radio group of options: letter, axis tag, one-line label, `Recommended` mark, redline, consequence sentence, `Might lose:` line
    - optional comment textarea
 5. MECE matrix, when the report has one, rendered as a table below the cards.
 6. Footer: a live `Prompt to copy-paste back` textarea regenerated on every input, and a `Copy` button using `navigator.clipboard.writeText` with a fallback that selects the text. Label it exactly that way on every host, so the same form works in Claude and ChatGPT.

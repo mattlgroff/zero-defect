@@ -8,7 +8,7 @@ It is designed for proposals, emails, candidate summaries, product plans, report
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.6.1.zip` from the [1.6.1 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.1), then:
+Download `zero-defect-1.7.0.zip` from the [1.7.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.7.0), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
