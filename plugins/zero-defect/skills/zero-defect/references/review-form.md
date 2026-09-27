@@ -28,8 +28,9 @@ If the host has no way to show a page, or the user says to skip it, return the M
 
 ## What the page does
 
-- Shows the deliverable with Markdown rendered: headings, paragraphs, lists, quotes, tables, code, bold, and italics. Plain-text files show as-is.
-- Places each finding by its anchor (`path:line`) and its exact `original` text. A finding whose text cannot be found stays in the list and appears under "Findings without a place in the document".
+- Shows the deliverable in the view that fits its type. Markdown (`.md`) is rendered: headings, paragraphs, lists, quotes, tables, code, bold, and italics. HTML (`.html`) is rendered as the page itself, with its own styles, after scripts, frames, forms, links, and external resources are removed; a Rendered / Source toggle switches to the line-by-line source. Any other text file shows as plain text.
+- Refuses binary files such as PDF, Word, and PowerPoint: the fill script exits with code 2. Review a Markdown, HTML, or text rendition instead.
+- Places each finding by its anchor (`path:line`) and its exact `original` text. In rendered HTML the page finds the passage's visible text, using the anchor line to pick the right occurrence when it repeats. A finding whose text cannot be found stays in the list and appears under "Findings without a place in the document".
 - Shows each undecided finding as a legal redline in the document: removed words struck through in red, inserted words underlined in green, using the selected option. A decided finding goes back to plain text, the accepted wording or the original if the reader kept it, marked only with a small check.
 - Offers Changes, Original, and Final views of the whole document.
 - Lists findings on the right as a to-do list sorted by severity (incomplete reviewer, Must fix, Style gate, Should fix), each checked off once decided. Clicking an item scrolls to its place in the document and opens its decision panel. On a phone the list is a drawer at the bottom.

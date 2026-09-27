@@ -83,6 +83,13 @@ export function validateFormData(data) {
   return errors;
 }
 
+/** Returns the file's text, or throws for anything that is not UTF-8 text (PDF, Word, PowerPoint, images). */
+export function readText(bytes, name) {
+  const binary = () => new Error(`${name} is not a text file. The review page shows Markdown, HTML, and plain text; supply a text rendition of the deliverable instead.`);
+  if (bytes.subarray(0, 2).toString("ascii") === "PK" || bytes.subarray(0, 5).toString("ascii") === "%PDF-" || bytes.includes(0)) throw binary();
+  try { return new TextDecoder("utf-8", { fatal: true }).decode(bytes); } catch { throw binary(); }
+}
+
 /** Serializes data so it cannot end the script element or break the JavaScript parser. */
 export function serializeForScript(data) {
   return JSON.stringify(data).replace(/</gu, "\\u003c").replace(/\u2028/gu, "\\u2028").replace(/\u2029/gu, "\\u2029");
@@ -117,8 +124,8 @@ async function main(argv) {
   for (const { path: file } of data.documents) {
     const full = path.resolve(base, file);
     let text;
-    try { text = await readFile(full, "utf8"); }
-    catch (error) { process.stderr.write(`Could not read deliverable ${full}: ${error.message}\n`); return 2; }
+    try { text = readText(await readFile(full), full); }
+    catch (error) { process.stderr.write(`${error.message}\n`); return 2; }
     documents.push({ name: path.basename(full), text });
   }
   await writeFile(output, fillTemplate(await readFile(templatePath, "utf8"), { ...data, documents }));

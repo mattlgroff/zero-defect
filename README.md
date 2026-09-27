@@ -17,7 +17,7 @@ The reviewer prompts, review contract, severity rules, and report format exist o
 
 Codex requires Node.js 22 or newer and an installed, authenticated Codex CLI. The collector uses independent `codex exec` processes instead of native noninteractive subagents because current Codex releases can lose subagent tasks or results in headless execution. On sandboxed hosts, launching authenticated nested Codex processes may require approval; denying it makes the review incomplete.
 
-The current release is **1.7.0** for both the Claude and Codex distributions. They share one version number and one git tag per release.
+The current release is **1.8.0** for both the Claude and Codex distributions. They share one version number and one git tag per release.
 
 ### Install in Codex from GitHub
 
@@ -43,7 +43,7 @@ codex plugin add zero-defect@zero-defect-codex
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.7.0.zip` from the [1.7.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.7.0), then:
+Download `zero-defect-1.8.0.zip` from the [1.8.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.8.0), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -123,7 +123,7 @@ MECE has been included since 1.5.0 (Codex 0.2.0 under the old separate numbering
 
 ## Interactive review form
 
-The review also opens as an interactive page: an Artifact on Claude Code, Claude Cowork, and claude.ai, or a ChatGPT Site on ChatGPT, ChatGPT Work, and Codex. It shows your document with every finding in place as a tracked change, red for removed words and green for inserted ones, and a to-do list of findings on the right sorted by severity. Click an item to jump to it in the document and pick a repair: each option shows its redline, what it gains, and what it might lose. Keep original is always available. A decided finding goes back to plain text with a small check, so what remains stands out. Switch between Changes, Original, and Final to read the whole document either way. Press Copy decisions for agent and paste the result into the chat.
+The review also opens as an interactive page: an Artifact on Claude Code, Claude Cowork, and claude.ai, or a ChatGPT Site on ChatGPT, ChatGPT Work, and Codex. It shows your document with every finding in place as a tracked change, red for removed words and green for inserted ones, and a to-do list of findings on the right sorted by severity. Click an item to jump to it in the document and pick a repair: each option shows its redline, what it gains, and what it might lose. Keep original is always available. A decided finding goes back to plain text with a small check, so what remains stands out. Switch between Changes, Original, and Final to read the whole document either way. Markdown is rendered as formatted text; an HTML deliverable is rendered as the page itself, with its own styles and with scripts and external content removed, and a Source toggle shows its markup. Other text files show as plain text. PDF, Word, and PowerPoint files are not shown; review a Markdown, HTML, or text version instead. Press Copy decisions for agent and paste the result into the chat.
 
 The page is a fixed template in the plugin. The model writes only the review data; `scripts/fill-review-form.mjs` checks that data against a schema, reads your document, and builds the page. No model writes the page's HTML.
 
