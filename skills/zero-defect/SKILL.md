@@ -7,7 +7,7 @@ description: Performs an eight-lens adversarial review of completed English-lang
 
 Run eight fresh, independent, read-only Codex reviewer processes and adjudicate their findings. Never replace them with one combined review.
 
-Resolve this skill's installed directory to an absolute path. Read the canonical Claude workflow at `../../plugins/zero-defect/skills/zero-defect/SKILL.md` and its linked review contract and MECE report reference before doing review work. They are authoritative. Follow canonical workflow steps 1–5, 7, and 10–15, plus the entire canonical Output section. Step 14 renders the interactive review form from `references/review-form.md` next to the canonical skill; on ChatGPT and ChatGPT Work publish it as a ChatGPT Site, and in the Codex CLI write the HTML beside the session working files and give the user the path. The Codex-specific dispatch below replaces canonical steps 6, 8, and 9; do not run those steps separately.
+Resolve this skill's installed directory to an absolute path. Read the canonical Claude workflow at `../../plugins/zero-defect/skills/zero-defect/SKILL.md` and its linked review contract and MECE report reference before doing review work. They are authoritative. Follow canonical workflow steps 1–5, 7, and 10–15, plus the entire canonical Output section. Step 14 builds the interactive review form as `references/review-form.md` next to the canonical skill describes: write only the JSON data file, run `../../plugins/zero-defect/skills/zero-defect/scripts/fill-review-form.mjs` to fill the template, then publish the resulting file as a ChatGPT Site when the Sites connector is available, or give the user the file's path in the Codex CLI. Never write the form's HTML yourself. The Codex-specific dispatch below replaces canonical steps 6, 8, and 9; do not run those steps separately.
 
 ## Supported local inputs
 
@@ -28,6 +28,10 @@ Start the constant command `node <absolute-collector-path> --stdin` in an execut
 - `approvedCommitments`: commitments or `none`
 - `confidentiality`: confidentiality boundary string
 - `research`: `allowed` or `denied`
+
+Add `supportingPaths`, an array of absolute paths, when canonical step 1 found supporting material. Reviewers read it as evidence; it is not reviewed or counted in the style census. Omit the field when there is none.
+
+Reviewers run on GPT-6 Astra by default. The `ZERO_DEFECT_CODEX_MODEL` environment variable overrides it; an empty value uses the Codex default model.
 
 Wait on that exact execution session until it exits. Never interpolate, quote, or evaluate assignment values as shell syntax. Never send the JSON before the execution tool has returned a live session ID. The collector itself uses direct process spawning rather than a shell. Do not start a second collector while the first is active.
 

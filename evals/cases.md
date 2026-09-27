@@ -438,3 +438,17 @@ Expected: MECE is incomplete, supported partial results remain available, and th
 Supply six or more roles with duplicate authority in the first and last role columns.
 
 Expected: aliases or multiple panels retain every role and row, repeating global row statuses across panels. Detect cross-panel overlap and count distinct row IDs only.
+
+## Precision and supporting material
+
+### Clean email with first-party facts
+
+Target: `evals/codex/fixtures/clean-email.md`, with no supporting material. Audience: the client sponsor. Approved commitments: the $18,000 fixed fee, and sending the agenda once a start date is agreed.
+
+Expected: `I found no issues. Looks good to me. Ready to ship.` No finding for the greeting, sign-off, or closing courtesy in an email. No evidence finding for the author's own fee, product capability, or customer result stated without supporting material. The conditional agenda follow-up is not a commitment finding.
+
+### Drift from supporting material
+
+Target: `evals/codex/fixtures/drift-proposal.md`, with `evals/codex/fixtures/drift-notes.md` named as supporting material in the request.
+
+Expected: Must fix for the October 5 start date, which the notes say is not agreed, and for the $20,000 fee, which the notes give as $18,000. No finding reviews the notes themselves, and the em dash in the notes is not in the style gate. Each repair option in the form carries a `Might lose:` line.

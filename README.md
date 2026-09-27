@@ -17,7 +17,7 @@ The reviewer prompts, review contract, severity rules, and report format exist o
 
 Codex requires Node.js 22 or newer and an installed, authenticated Codex CLI. The collector uses independent `codex exec` processes instead of native noninteractive subagents because current Codex releases can lose subagent tasks or results in headless execution. On sandboxed hosts, launching authenticated nested Codex processes may require approval; denying it makes the review incomplete.
 
-The current release is **1.6.1** for both the Claude and Codex distributions. They share one version number and one git tag per release.
+The current release is **1.7.0** for both the Claude and Codex distributions. They share one version number and one git tag per release.
 
 ### Install in Codex from GitHub
 
@@ -43,7 +43,7 @@ codex plugin add zero-defect@zero-defect-codex
 
 Cowork and Skills must be enabled for the organization. An Owner or Primary Owner can install the plugin:
 
-Download `zero-defect-1.6.1.zip` from the [1.6.1 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.6.1), then:
+Download `zero-defect-1.7.0.zip` from the [1.7.0 release](https://github.com/mattlgroff/zero-defect/releases/tag/v1.7.0), then:
 
 1. Open **Organization settings > Plugins**.
 2. Select **Add plugins**, then **Upload a file**.
@@ -95,6 +95,20 @@ The skill does not activate for ordinary drafting requests. It activates when yo
 
 The Claude workflow requires a host that can invoke all eight plugin agents. Codex uses the collector described above. A missing or failed reviewer makes the review incomplete.
 
+### Supporting material
+
+Attach or name what the deliverable was written from, such as call notes, a fact sheet, a pricing sheet, or a prior agreement, and the reviewers check the deliverable against it. That is how a review catches a promised date the notes say is not agreed, or a price that drifted from the quote.
+
+```text
+Give this proposal a Zero Defect review. The facts it relies on are in call-notes.md.
+```
+
+Without supporting material, reviewers judge claims only against the deliverable itself. They do not flag your own prices, results, product capabilities, or metrics just because no evidence was attached. Unchecked outside claims the reader would rely on, such as market statistics, are grouped into one Should fix item listing what to confirm.
+
+### Codex model
+
+Codex reviewers run on GPT-6 Astra, which had the best precision in single-reviewer tests. Set `ZERO_DEFECT_CODEX_MODEL` to use another model, or to an empty value for the Codex default.
+
 ## MECE responsibility lens
 
 MECE runs within the normal Zero Defect review as its eighth lens. No separate skill or command is needed. It checks proposed accountability for overlapping owners, responsibilities without owners, and unclear handoffs. Shared work is allowed when accountability and boundaries are clear.
@@ -109,9 +123,11 @@ MECE has been included since 1.5.0 (Codex 0.2.0 under the old separate numbering
 
 ## Interactive review form
 
-The review also renders as an interactive form: an Artifact on Claude Code, Claude Cowork, and claude.ai, or a ChatGPT Site on ChatGPT, ChatGPT Work, and Codex. Each finding card shows the anchored passage, two or three concrete repair options drawn as legal redlines against the original, the consequence of each, one option marked Recommended and preselected, a Skip option, and a comment box. Filter chips switch between All, Must fix, and Should fix. A live `Prompt to copy-paste back` block at the bottom collects your choices; press Copy and paste it into the chat.
+The review also opens as an interactive page: an Artifact on Claude Code, Claude Cowork, and claude.ai, or a ChatGPT Site on ChatGPT, ChatGPT Work, and Codex. It shows your document with every finding in place as a tracked change, red for removed words and green for inserted ones, and a to-do list of findings on the right sorted by severity. Click an item to jump to it in the document and pick a repair: each option shows its redline, what it gains, and what it might lose. Keep original is always available. A decided finding goes back to plain text with a small check, so what remains stands out. Switch between Changes, Original, and Final to read the whole document either way. Press Copy decisions for agent and paste the result into the chat.
 
-Choosing an option does not change the deliverable. Claude returns the accepted repairs as an edit list by identifier and applies them only when you ask for revision. A host that cannot show an HTML page gets the Markdown report alone.
+The page is a fixed template in the plugin. The model writes only the review data; `scripts/fill-review-form.mjs` checks that data against a schema, reads your document, and builds the page. No model writes the page's HTML.
+
+Choosing an option does not change the deliverable. Claude returns the accepted repairs as an edit list by identifier and applies them only when you ask for revision. A host that cannot run Node.js or show a page gets the Markdown report alone.
 
 ## Responding to findings
 
@@ -129,7 +145,7 @@ Identifiers remain attached to the same findings during follow-up on that report
 
 ## Privacy and behavior
 
-Neither distribution creates review artifacts or includes an MCP server, lifecycle hook, package dependency, or local server. The Claude package contains no executable. The Codex distribution adds only the Node.js collector described above; it writes no files and returns the adjudicated report over standard output.
+Neither distribution includes an MCP server, lifecycle hook, package dependency, or local server. Both include one small Node.js script, `fill-review-form.mjs`, which builds the review page from the review data and writes it to the session's scratch or working folder, never into the deliverable's folder. The Codex distribution also adds the Node.js collector described above; it writes no files and returns the adjudicated report over standard output.
 
 The eight reviewers read the deliverable directly with read-only tools. They open the exact paths named in the review assignment and the canonical review instructions, confirm passages with a literal search, and report line anchors. They do not write, edit, or delete anything, and they do not browse unrelated files.
 

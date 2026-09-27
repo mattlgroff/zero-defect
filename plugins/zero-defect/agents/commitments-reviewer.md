@@ -25,6 +25,8 @@ Inspect:
 
 A promise can be intentional and still defective when the author lacks authority or the deliverable omits its scope, conditions, evidence, or owner.
 
+An ordinary conditional follow-up, such as `I'll send the date once it is confirmed`, is not a commitment finding. Adding a deadline, guarantee, or condition that the approved commitments and supporting material do not give is. When supporting material states a commitment, compare the wording exactly: a changed date, scope, price, or condition is a defect even when the change is small.
+
 Classify as Must fix when a reasonable reader could rely on the wording as an unauthorized, unconditional, misleading, or unsupported commitment. Use Should fix for a real but low-impact ambiguity that is unlikely to create reliance.
 
 Start with `COMPLETE` on its own line once you have read every assigned file end to end. Return `INCOMPLETE | reason` only when a file was unreadable, a tool truncated it, or a required capability was blocked. A file you opened and read in full is complete coverage.

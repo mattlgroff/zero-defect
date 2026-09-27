@@ -2,6 +2,23 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.7.0] - 2026-09-26
+
+### Added
+
+- Supporting material: name the notes, fact sheet, pricing sheet, or prior agreement a deliverable was written from, and every lens checks the deliverable against it. The Claude skill passes those paths to each reviewer. The Codex collector takes an optional `supportingPaths` array (or `--supporting-path`), shows it to every reviewer and the adjudicator as evidence, and keeps it out of the style census.
+- A precision section in the review contract: four checks before reporting, and boundary examples for necessary contrasts, ordinary follow-ups, email greetings and sign-offs, closing courtesies by document type, correct arithmetic, accurate gap reports, unsupported assurances, and first-party facts.
+- A new review page: your document with every finding in place as a tracked change, and a to-do list on the right sorted by severity. Clicking an item jumps to it and opens its decision panel; each option shows its redline, what it gains, and what it `Might lose`. Decided findings go back to plain text with a check. Changes, Original, and Final views; Copy decisions for agent.
+- The page is a fixed template (`review-form.html`) filled by `scripts/fill-review-form.mjs` from review data that follows `review-form.schema.json`. The model writes only the data; the script validates it, reads the deliverable, and builds the page. No model writes HTML. Every host publishes the page from a file path.
+
+### Changed
+
+- A claim that could not be checked is no longer a defect by itself. The author's own prices, terms, results, product capabilities, and metrics are not flagged only because no evidence was supplied. Unchecked external claims the audience would rely on are grouped into one Should fix finding. Must fix requires a demonstrated problem.
+- When supporting material exists, any difference that changes a claim counts: wording drift is Should fix; a changed number or an unauthorized promise is Must fix.
+- Ordinary conditional follow-ups are no longer commitment findings. Greetings, sign-offs, and signatures are never slop findings; a closing courtesy is fine in an email and Should fix in a formal document.
+- Repairs target the smallest span that fixes the defect, so repairs for several findings on one line stay compatible.
+- Codex reviewers and the adjudicator run on GPT-6 Astra by default. `ZERO_DEFECT_CODEX_MODEL` overrides it; an empty value uses the Codex default.
+
 ## [1.6.1] - 2026-09-19
 
 ### Changed

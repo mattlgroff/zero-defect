@@ -1,0 +1,292 @@
+{
+ "title": "rich-proposal.md",
+ "round": 1,
+ "verdict": "Not ready (style gate, 8 must fix)",
+ "styleGate": "FAIL",
+ "audience": "Northwind CFO",
+ "purpose": "Approve or reject the purchase",
+ "reviewers": "Eight reviewers ran.",
+ "documents": [
+  {
+   "path": "../../codex/fixtures/rich-proposal.md"
+  }
+ ],
+ "findings": [
+  {
+   "id": "ZD-001",
+   "severity": "style",
+   "anchor": "rich-proposal.md:9",
+   "original": "—contact",
+   "defect": "Em dash in body text.",
+   "impact": "The style gate fails on this character alone.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Period",
+     "axis": "style",
+     "text": ". Contact",
+     "consequence": "Two plain sentences.",
+     "mightLose": "nothing material",
+     "recommended": true
+    }
+   ]
+  },
+  {
+   "id": "ZD-002",
+   "severity": "style",
+   "anchor": "rich-proposal.md:3",
+   "original": "not just a reporting tool, but a transformation engine",
+   "defect": "Negative parallelism used as punch-up.",
+   "impact": "Sounds like a slogan and tells the CFO nothing concrete.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Say what it does",
+     "axis": "plain claim",
+     "text": "a reporting platform that [NEED: the concrete capability]",
+     "consequence": "States the capability directly.",
+     "mightLose": "The rhetorical lift of the contrast.",
+     "recommended": true
+    }
+   ]
+  },
+  {
+   "id": "ZD-003",
+   "severity": "must",
+   "anchor": "rich-proposal.md:3",
+   "original": "It will eliminate reporting errors and reduce recruiting costs by 40% within 30 days.",
+   "defect": "Unconditional guarantee with no baseline, method, source, or approval.",
+   "impact": "It is the main financial reason given for approval, and nobody has authorized it.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Remove the guarantee",
+     "axis": "remove",
+     "text": "",
+     "consequence": "No unapproved promise remains.",
+     "mightLose": "The proposal's only stated financial benefit, until an approved estimate exists.",
+     "recommended": true
+    },
+    {
+     "id": "B",
+     "label": "Replace with an approved estimate",
+     "axis": "conditional",
+     "text": "We estimate [NEED: approved savings range] lower recruiting costs, measured against [NEED: baseline] from go-live.",
+     "consequence": "Keeps a benefit the CFO can check.",
+     "mightLose": "The specific 40% and 30-day figures."
+    }
+   ]
+  },
+  {
+   "id": "ZD-004",
+   "severity": "must",
+   "anchor": "rich-proposal.md:3",
+   "original": "Industry experts agree this is the future of recruiting.",
+   "defect": "Appeal to unnamed authority.",
+   "impact": "The CFO cannot know who agrees or why, and it weakens trust in the rest.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Delete it",
+     "axis": "remove",
+     "text": "",
+     "consequence": "Removes an unverifiable claim.",
+     "mightLose": "nothing material",
+     "recommended": true
+    },
+    {
+     "id": "B",
+     "label": "Cite a named source",
+     "axis": "cited",
+     "text": "[NEED: named, approved source and what it found].",
+     "consequence": "Keeps the point if a source exists.",
+     "mightLose": "Brevity."
+    }
+   ]
+  },
+  {
+   "id": "ZD-005",
+   "severity": "must",
+   "anchor": "rich-proposal.md:5",
+   "original": "$100,000",
+   "defect": "$90,000 plus $15,000 is $105,000, not $100,000.",
+   "impact": "The CFO cannot tell which amount is being approved.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Correct the total",
+     "axis": "correct",
+     "text": "$105,000",
+     "consequence": "The total matches its parts.",
+     "mightLose": "The lower headline number.",
+     "recommended": true
+    },
+    {
+     "id": "B",
+     "label": "State a discount",
+     "axis": "explain",
+     "text": "$100,000 after a $5,000 [NEED: approved discount]",
+     "consequence": "Keeps $100,000 if a discount was approved.",
+     "mightLose": "Simplicity: adds a term to confirm."
+    }
+   ]
+  },
+  {
+   "id": "ZD-006",
+   "severity": "must",
+   "anchor": "rich-proposal.md:7",
+   "original": "The rollout takes six weeks. Work begins September 15, 2026, and will be complete by October 1, 2026.",
+   "defect": "September 15 to October 1 is 16 days, not six weeks.",
+   "impact": "The CFO cannot plan resources or payment timing.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Keep the duration, drop the dates",
+     "axis": "narrower promise",
+     "text": "The rollout takes six weeks from [NEED: start date after approval].",
+     "consequence": "One consistent schedule.",
+     "mightLose": "Fixed calendar dates.",
+     "recommended": true
+    },
+    {
+     "id": "B",
+     "label": "Keep the dates, fix the duration",
+     "axis": "match dates",
+     "text": "The rollout takes about two weeks, from September 15 to October 1, 2026.",
+     "consequence": "Consistent, but only if two weeks is feasible.",
+     "mightLose": "The buffer a six-week plan implied."
+    }
+   ]
+  },
+  {
+   "id": "ZD-007",
+   "severity": "must",
+   "anchor": "rich-proposal.md:7",
+   "original": "The migration is reversible, although the only legacy database and its backups will be permanently deleted during launch.",
+   "defect": "Contradiction: reversible, yet the only data and backups are deleted.",
+   "impact": "The CFO would approve permanent data loss believing it can be undone.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Say it is permanent",
+     "axis": "accurate",
+     "text": "The migration cannot be reversed: the only legacy database and its backups will be permanently deleted during launch.",
+     "consequence": "The risk is stated plainly.",
+     "mightLose": "The reassurance that the migration is reversible.",
+     "recommended": true
+    },
+    {
+     "id": "B",
+     "label": "Keep a rollback window",
+     "axis": "safer plan",
+     "text": "The migration is reversible until [NEED: retention end date], when the legacy database and its backups are deleted.",
+     "consequence": "Keeps a real rollback path.",
+     "mightLose": "A simple plan; needs retention confirmed first."
+    }
+   ]
+  },
+  {
+   "id": "ZD-008",
+   "severity": "must",
+   "anchor": "rich-proposal.md:9",
+   "original": "Customer questions will receive a response soon.",
+   "defect": "Implies a support service level nobody approved.",
+   "impact": "The CFO may assume support terms are covered by the price.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Point to agreed terms",
+     "axis": "defined",
+     "text": "Support terms, including response times, are [NEED: agreed support terms].",
+     "consequence": "No vague promise.",
+     "mightLose": "A friendly reassurance.",
+     "recommended": true
+    }
+   ]
+  },
+  {
+   "id": "ZD-009",
+   "severity": "must",
+   "anchor": "rich-proposal.md:11",
+   "original": "Delivery Lead also owns final scope-change approval.",
+   "defect": "Two owners of the same final approval.",
+   "impact": "Scope changes drive cost, and it is unclear who controls them.",
+   "options": [
+    {
+     "id": "A",
+     "label": "One final approver",
+     "axis": "named owner",
+     "text": "Delivery Lead contributes to scope changes; Account Lead gives final approval.",
+     "consequence": "One accountable approver.",
+     "mightLose": "Delivery Lead's authority to block a change.",
+     "recommended": true
+    }
+   ]
+  },
+  {
+   "id": "ZD-010",
+   "severity": "must",
+   "anchor": "rich-proposal.md:11",
+   "original": "Both roles support transition to support.",
+   "defect": "No one owns the transition to support.",
+   "impact": "The handoff can fall between the two roles.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Name the owner",
+     "axis": "named owner",
+     "text": "Delivery Lead owns transition to support; Account Lead contributes.",
+     "consequence": "The handoff has an owner.",
+     "mightLose": "Shared responsibility, if that was intended.",
+     "recommended": true
+    }
+   ]
+  },
+  {
+   "id": "ZD-011",
+   "severity": "should",
+   "anchor": "rich-proposal.md:3",
+   "original": "robust, next-generation ",
+   "defect": "Promotional adjectives with no comparison.",
+   "impact": "They dilute credibility in a purchase decision.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Drop them",
+     "axis": "remove",
+     "text": "",
+     "consequence": "Plainer, more credible.",
+     "mightLose": "nothing material",
+     "recommended": true
+    }
+   ]
+  },
+  {
+   "id": "ZD-012",
+   "severity": "should",
+   "anchor": "rich-proposal.md:13",
+   "original": "In conclusion, this groundbreaking partnership will unlock meaningful value across your evolving talent landscape.",
+   "defect": "Empty closing with no decision or owner.",
+   "impact": "Ends on filler instead of the ask.",
+   "options": [
+    {
+     "id": "A",
+     "label": "Delete it",
+     "axis": "remove",
+     "text": "",
+     "consequence": "Ends on the substance.",
+     "mightLose": "nothing material",
+     "recommended": true
+    },
+    {
+     "id": "B",
+     "label": "End with the ask",
+     "axis": "clear ask",
+     "text": "Please approve the purchase by [NEED: decision date] so work can start after approval.",
+     "consequence": "Gives the CFO a concrete next step.",
+     "mightLose": "nothing material"
+    }
+   ]
+  }
+ ]
+}
