@@ -28,13 +28,14 @@ If the host has no way to show a page, or the user says to skip it, return the M
 
 ## What the page does
 
-- Shows the deliverable with Markdown rendered: headings, paragraphs, lists, quotes, tables, code, bold, and italics. Plain-text files show as-is.
-- Places each finding by its anchor (`path:line`) and its exact `original` text. A finding whose text cannot be found stays in the list and appears under "Findings without a place in the document".
-- Shows each undecided finding as a legal redline in the document: removed words struck through in red, inserted words underlined in green, using the selected option. A decided finding goes back to plain text, the accepted wording or the original if the reader kept it, marked only with a small check.
-- Offers Changes, Original, and Final views of the whole document.
-- Lists findings on the right as a to-do list sorted by severity (incomplete reviewer, Must fix, Style gate, Should fix), each checked off once decided. Clicking an item scrolls to its place in the document and opens its decision panel. On a phone the list is a drawer at the bottom.
-- The decision panel shows the defect, the impact, each option with its redline, consequence, and `Might lose:` line, Keep original, a comment box, and Confirm. Confirming moves to the next undecided finding.
-- Builds the handoff prompt from confirmed decisions only, with a Copy button.
+- Shows the deliverable in the view that fits its type. Markdown (`.md`) is rendered: headings, paragraphs, lists, quotes, tables, code, bold, italics, and images. HTML (`.html`) is rendered as the page itself, with its own styles, after scripts, frames, forms, links, and external resources are removed; a Rendered / Source toggle switches to the line-by-line source. Any other text file shows as plain text.
+- Shows local images the deliverable refers to: the fill script embeds them. Images on the web cannot load inside a published page and show as a labelled placeholder with their address. Binary deliverables such as PDF, Word, and PowerPoint are refused; review a Markdown, HTML, or text rendition instead.
+- Places each finding by its anchor (`path:line`) and its exact `original` text. In rendered HTML the page finds the passage's visible text, using the anchor line to pick the right occurrence when it repeats. A finding whose text cannot be found stays in the list and appears under "Findings without a place in the document".
+- Review view underlines each open finding in its severity color and shows the selected finding as a redline. All changes shows every suggested change as a redline; Original and Final show the text before and after every suggestion. A decided finding reads as plain text: the accepted wording, or the original if the reader kept it.
+- A Review sidebar lists findings as cards sorted by severity (reviewer did not finish, Must fix, Style rule, Should fix). Each card shows the problem, the suggested change, and what it might lose, with Accept, Keep original, and See options. Options open inside the card, each with its own Use this button; a note for the agent is optional. Selecting a card and selecting its text in the document go together, and neither covers the other. Decided findings stay in place as one line with Undo.
+- An accepted change that still contains `[NEED: ...]` is marked as needing information, counted separately, and flagged in the handoff.
+- The sidebar footer always shows Copy decisions for the agent, how many findings remain undecided, and Undo for the last decision. Bulk acceptance is limited to Style rule and Should fix findings and asks for confirmation; Must fix findings are always decided one by one.
+- Keyboard: J and K move between open findings, A accepts, X keeps the original. On a phone the sidebar is a bottom sheet.
 
 ## Drafting repair options
 

@@ -2,6 +2,20 @@
 
 All notable changes to Zero Defect are documented here.
 
+## [1.8.0] - 2026-09-27
+
+### Added
+
+- The review page renders an HTML deliverable as the page itself, with its own styles, inside an isolated view. Scripts, frames, forms, links, and external resources are removed and nothing is fetched. Findings are placed by finding their visible text in the rendered page, with the anchor line choosing among repeats. A Rendered / Source toggle shows the markup line by line.
+
+- Local images in Markdown and HTML deliverables are embedded by the fill script and shown; web images show as labelled placeholders instead of broken icons.
+
+### Changed
+
+- Review page redesign after screenshot review and critiques from GPT-6 Astra and a UX-laws review: a Review sidebar of cards with Accept, Keep original, and See options (each option with its own Use this) replaces the popover; quiet severity underlines in the document with only the selected finding shown as a redline; a sticky footer with Copy decisions, the undecided count, and Undo; a live readiness line; Needs information for accepted changes that still contain `[NEED: ...]`; bulk acceptance limited to Style rule and Should fix with a confirmation; larger touch targets and a phone bottom sheet that keeps the decision buttons in view.
+- The page no longer carries its own Content-Security-Policy tag, which published hosts moved outside `<head>` and ignored with a console warning; the fill script's sanitizing and the host's own policy apply.
+- `fill-review-form.mjs` refuses binary deliverables (PDF, Word, PowerPoint, images) with a message to supply a Markdown, HTML, or text rendition, instead of embedding unreadable bytes.
+
 ## [1.7.0] - 2026-09-26
 
 ### Added
