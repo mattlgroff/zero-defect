@@ -16,6 +16,7 @@ All notable changes to Zero Defect are documented here.
 - When supporting material exists, any difference that changes a claim counts: wording drift is Should fix; a changed number or an unauthorized promise is Must fix.
 - Ordinary conditional follow-ups are no longer commitment findings. Greetings, sign-offs, and signatures are never slop findings; a closing courtesy is fine in an email and Should fix in a formal document.
 - Repairs target the smallest span that fixes the defect, so repairs for several findings on one line stay compatible.
+- The copy-back prompt separates a comment with ` | ` instead of an em dash, so the form no longer contains the character its own style gate reports.
 - Codex reviewers and the adjudicator run on GPT-6 Astra by default. `ZERO_DEFECT_CODEX_MODEL` overrides it; an empty value uses the Codex default.
 
 ## [1.6.1] - 2026-09-19

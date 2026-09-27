@@ -62,12 +62,12 @@ Single HTML file, vanilla JS, inline CSS, no external requests, no fonts loaded 
 
 ```text
 zero-defect round N decisions:
-ZD-003 A formal — comment text if any
+ZD-003 A formal | comment text if any
 ZD-004 skip
-ZD-005 B broader scope — keep the retest reference
+ZD-005 B broader scope | keep the retest reference
 ```
 
-One line per finding with options. The letter is the choice; the axis tag repeats for readability. Findings without options are omitted from the prompt.
+One line per finding with options. The letter is the choice; the axis tag repeats for readability. Findings without options are omitted from the prompt. A comment follows ` | `. The form never uses an em dash, in the prompt or anywhere else, because the style gate it reports on forbids one.
 
 ## Handling the pasted prompt
 
