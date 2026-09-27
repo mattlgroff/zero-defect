@@ -90,6 +90,31 @@ export function readText(bytes, name) {
   try { return new TextDecoder("utf-8", { fatal: true }).decode(bytes); } catch { throw binary(); }
 }
 
+const IMAGE_TYPES = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".gif": "image/gif", ".webp": "image/webp", ".svg": "image/svg+xml", ".avif": "image/avif" };
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024, MAX_TOTAL_IMAGE_BYTES = 8 * 1024 * 1024;
+
+/** Local images a Markdown or HTML deliverable refers to, embedded as data URLs keyed by the reference as written.
+ *  Web addresses are left out: the review page cannot load them and shows a labelled placeholder instead. */
+export async function embedImages(text, file, budget = { left: MAX_TOTAL_IMAGE_BYTES }) {
+  const refs = new Set();
+  for (const m of text.matchAll(/!\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+"[^"]*")?\s*\)/gu)) refs.add(m[1]);
+  for (const m of text.matchAll(/<img\b[^>]*?\bsrc\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/giu)) refs.add(m[2] ?? m[3] ?? m[4]);
+  const images = {};
+  for (const ref of refs) {
+    if (!ref || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/iu.test(ref)) continue;
+    const clean = decodeURI(ref.split(/[?#]/u)[0]);
+    const type = IMAGE_TYPES[path.extname(clean).toLowerCase()];
+    if (!type) continue;
+    try {
+      const bytes = await readFile(path.resolve(path.dirname(file), clean));
+      if (bytes.length > MAX_IMAGE_BYTES || bytes.length > budget.left) continue;
+      budget.left -= bytes.length;
+      images[ref] = `data:${type};base64,${bytes.toString("base64")}`;
+    } catch { /* missing images show as placeholders */ }
+  }
+  return images;
+}
+
 /** Serializes data so it cannot end the script element or break the JavaScript parser. */
 export function serializeForScript(data) {
   return JSON.stringify(data).replace(/</gu, "\\u003c").replace(/\u2028/gu, "\\u2028").replace(/\u2029/gu, "\\u2029");
@@ -120,13 +145,13 @@ async function main(argv) {
     return 2;
   }
   const base = path.dirname(path.resolve(input));
-  const documents = [];
+  const documents = [], budget = { left: MAX_TOTAL_IMAGE_BYTES };
   for (const { path: file } of data.documents) {
     const full = path.resolve(base, file);
     let text;
     try { text = readText(await readFile(full), full); }
     catch (error) { process.stderr.write(`${error.message}\n`); return 2; }
-    documents.push({ name: path.basename(full), text });
+    documents.push({ name: path.basename(full), text, images: await embedImages(text, full, budget) });
   }
   await writeFile(output, fillTemplate(await readFile(templatePath, "utf8"), { ...data, documents }));
   process.stdout.write(`${path.resolve(output)}\n`);

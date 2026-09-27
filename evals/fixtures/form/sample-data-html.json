@@ -15,7 +15,7 @@
   {
    "id": "ZD-001",
    "severity": "style",
-   "anchor": "rich-proposal.html:21",
+   "anchor": "rich-proposal.html:22",
    "original": "—contact",
    "defect": "Em dash in body text.",
    "impact": "The style gate fails on this character alone.",
@@ -107,7 +107,7 @@
   {
    "id": "ZD-005",
    "severity": "must",
-   "anchor": "rich-proposal.html:19",
+   "anchor": "rich-proposal.html:20",
    "original": "$100,000",
    "defect": "$90,000 plus $15,000 is $105,000, not $100,000.",
    "impact": "The CFO cannot tell which amount is being approved.",
@@ -134,7 +134,7 @@
   {
    "id": "ZD-006",
    "severity": "must",
-   "anchor": "rich-proposal.html:20",
+   "anchor": "rich-proposal.html:21",
    "original": "The rollout takes six weeks. Work begins September 15, 2026, and will be complete by October 1, 2026.",
    "defect": "September 15 to October 1 is 16 days, not six weeks.",
    "impact": "The CFO cannot plan resources or payment timing.",
@@ -161,7 +161,7 @@
   {
    "id": "ZD-007",
    "severity": "must",
-   "anchor": "rich-proposal.html:20",
+   "anchor": "rich-proposal.html:21",
    "original": "The migration is reversible, although the only legacy database and its backups will be permanently deleted during launch.",
    "defect": "Contradiction: reversible, yet the only data and backups are deleted.",
    "impact": "The CFO would approve permanent data loss believing it can be undone.",
@@ -188,7 +188,7 @@
   {
    "id": "ZD-008",
    "severity": "must",
-   "anchor": "rich-proposal.html:21",
+   "anchor": "rich-proposal.html:22",
    "original": "Customer questions will receive a response soon.",
    "defect": "Implies a support service level nobody approved.",
    "impact": "The CFO may assume support terms are covered by the price.",
@@ -207,7 +207,7 @@
   {
    "id": "ZD-009",
    "severity": "must",
-   "anchor": "rich-proposal.html:24",
+   "anchor": "rich-proposal.html:25",
    "original": "Delivery Lead also owns final scope-change approval.",
    "defect": "Two owners of the same final approval.",
    "impact": "Scope changes drive cost, and it is unclear who controls them.",
@@ -226,7 +226,7 @@
   {
    "id": "ZD-010",
    "severity": "must",
-   "anchor": "rich-proposal.html:25",
+   "anchor": "rich-proposal.html:26",
    "original": "Both roles support transition to support.",
    "defect": "No one owns the transition to support.",
    "impact": "The handoff can fall between the two roles.",
@@ -264,7 +264,7 @@
   {
    "id": "ZD-012",
    "severity": "should",
-   "anchor": "rich-proposal.html:27",
+   "anchor": "rich-proposal.html:28",
    "original": "In conclusion, this groundbreaking partnership will unlock meaningful value across your evolving talent landscape.",
    "defect": "Empty closing with no decision or owner.",
    "impact": "Ends on filler instead of the ask.",
